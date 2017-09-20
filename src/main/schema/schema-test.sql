@@ -8,7 +8,8 @@ create table Users (
 	password text,
 	primary key (id)
 );
-insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123"); 
+insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123");
+insert into Users values (2,"Mayuresh","Halshikar","mayuresh@einsicht.com","1234","----","mayuresh123");
 create table Roles (
 	id int not null auto_increment,
 	name varchar(64),
