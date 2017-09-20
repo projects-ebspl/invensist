@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.einsicht.model.User;
+import com.einsicht.entities.User;
+
 
 @RestController
 public class LoginController {
