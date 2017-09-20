@@ -25,6 +25,7 @@ create table UserRoleMapping (
 	constraint fk_user foreign key (user) references Users(id),
 	constraint fk_role foreign key (role) references Roles(id)
 );
+insert into UserRoleMapping values (1,1);
 create table Stores (
 	id int not null auto_increment,
 	name varchar(64) not null,
