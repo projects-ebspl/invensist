@@ -43,6 +43,15 @@ public class ConfigDao extends BaseDao {
 				return populateUser(rs, new User());
 			}});
 	}
+	
+	public List<Role> getRoles() {
+		String sql = "select id as roleid, name, description from Roles";
+		return getJdbcTemplate().query(sql, new RowMapper<Role>() {
+			@Override
+			public Role mapRow(ResultSet rs, int arg1) throws SQLException {
+				return populateRole(rs, new Role());
+			}});
+	}
 
 	public List<Role> getRolesForUser(int id) {
 		String sql = "select id as roleid, name, description from Roles where id in (select role from UserRoleMapping where user = " + id + ")";
