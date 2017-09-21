@@ -11,7 +11,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import com.einsicht.entities.Item;
 import com.einsicht.entities.Store;
+import com.einsicht.enums.ItemType;
 import com.einsicht.enums.StoreType;
 
 public class InventoryDaoTest extends BaseDaoTest {
@@ -151,5 +153,56 @@ public class InventoryDaoTest extends BaseDaoTest {
 		stores = dao.getStoresForUser(2);
 		assertNotNull(stores);
 		assertEquals(3, stores.size());
+	}
+	
+	@Test
+	public void testGetAllItems() {
+		InventoryDao dao = new InventoryDao();
+		setUp(dao);
+		List<Item> items = dao.getAllItems();
+		assertNotNull(items);
+		assertEquals(6, items.size());
+		
+		assertEquals(1, items.get(0).getId());
+		assertEquals("S001", items.get(0).getCode());
+		assertEquals("Test-1", items.get(0).getDescription());
+		assertEquals(40, items.get(0).getItemcost(),0.01);
+		assertEquals(0, items.get(0).getAssemblycost(), 0.01);
+		assertEquals(ItemType.single, items.get(0).getType());
+		
+		assertEquals(2, items.get(1).getId());
+		assertEquals("S002", items.get(1).getCode());
+		assertEquals("Test-2", items.get(1).getDescription());
+		assertEquals(35, items.get(1).getItemcost(),0.01);
+		assertEquals(0, items.get(1).getAssemblycost(), 0.01);
+		assertEquals(ItemType.single, items.get(1).getType());
+		
+		assertEquals(3, items.get(2).getId());
+		assertEquals("S003", items.get(2).getCode());
+		assertEquals("Test-3", items.get(2).getDescription());
+		assertEquals(37, items.get(2).getItemcost(),0.01);
+		assertEquals(0, items.get(2).getAssemblycost(), 0.01);
+		assertEquals(ItemType.single, items.get(2).getType());
+		
+		assertEquals(4, items.get(3).getId());
+		assertEquals("C001", items.get(3).getCode());
+		assertEquals("TestC-1", items.get(3).getDescription());
+		assertEquals(87, items.get(3).getItemcost(),0.01);
+		assertEquals(5, items.get(3).getAssemblycost(),0.01);
+		assertEquals(ItemType.combo, items.get(3).getType());
+		
+		assertEquals(5, items.get(4).getId());
+		assertEquals("C002", items.get(4).getCode());
+		assertEquals("TestC-2", items.get(4).getDescription());
+		assertEquals(104, items.get(4).getItemcost(),0.01);
+		assertEquals(7, items.get(4).getAssemblycost(),0.01);
+		assertEquals(ItemType.combo, items.get(4).getType());
+		
+		assertEquals(6, items.get(5).getId());
+		assertEquals("C003", items.get(5).getCode());
+		assertEquals("TestC-3", items.get(5).getDescription());
+		assertEquals(146, items.get(5).getItemcost(),0.01);
+		assertEquals(13, items.get(5).getAssemblycost(),0.01);
+		assertEquals(ItemType.combo, items.get(5).getType());
 	}
 }

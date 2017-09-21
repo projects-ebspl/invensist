@@ -10,9 +10,9 @@ public class Item {
 	
 	private String description;
 	
-	private double itemcost;
+	private Double itemcost;
 	
-	private double assemblycost;
+	private Double assemblycost;
 	
 	private ItemType type;
 	
@@ -26,8 +26,9 @@ public class Item {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public Item setId(int id) {
 		this.id = id;
+		return this;
 	}
 
 	/**
@@ -40,8 +41,9 @@ public class Item {
 	/**
 	 * @param code the code to set
 	 */
-	public void setCode(String code) {
+	public Item setCode(String code) {
 		this.code = code;
+		return this;
 	}
 
 	/**
@@ -54,36 +56,39 @@ public class Item {
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
+	public Item setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	/**
 	 * @return the itemcost
 	 */
-	public double getItemcost() {
+	public Double getItemcost() {
 		return itemcost;
 	}
 
 	/**
 	 * @param itemcost the itemcost to set
 	 */
-	public void setItemcost(double itemcost) {
+	public Item setItemcost(Double itemcost) {
 		this.itemcost = itemcost;
+		return this;
 	}
 
 	/**
 	 * @return the assemblycost
 	 */
-	public double getAssemblycost() {
+	public Double getAssemblycost() {
 		return assemblycost;
 	}
 
 	/**
 	 * @param assemblycost the assemblycost to set
 	 */
-	public void setAssemblycost(double assemblycost) {
+	public Item setAssemblycost(Double assemblycost) {
 		this.assemblycost = assemblycost;
+		return this;
 	}
 
 	/**
@@ -96,7 +101,8 @@ public class Item {
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(ItemType type) {
+	public Item setType(ItemType type) {
 		this.type = type;
+		return this;
 	}
 }

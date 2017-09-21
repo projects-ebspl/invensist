@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.einsicht.dao.mappers.ItemRowMapper;
 import com.einsicht.dao.mappers.StoreRowMapper;
+import com.einsicht.entities.Item;
 import com.einsicht.entities.Store;
 import com.einsicht.enums.StoreType;
 
@@ -57,5 +59,10 @@ public class InventoryDao extends BaseDao {
 	public void removeStoreFromUser(int userId, int storeId) {
 		String sql = "delete from UserStoreMapping where user = ? and store = ?";
 		getJdbcTemplate().update(sql, new Object[] {userId, storeId});
+	}
+	
+	public List<Item> getAllItems() {
+		String sql = "select id, code, description, itemcost, assemblycost, type from Item";
+		return getJdbcTemplate().query(sql, new ItemRowMapper());				
 	}
 }
