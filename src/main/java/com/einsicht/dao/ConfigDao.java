@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.einsicht.entities.Role;
 import com.einsicht.entities.User;
 
-
-
 @Repository("configDao")
 public class ConfigDao extends BaseDao {
 	
@@ -33,6 +31,22 @@ public class ConfigDao extends BaseDao {
 			public User mapRow(ResultSet rs, int arg1) throws SQLException {
 				return populateUser(rs, new User());
 			}});
+	}
+	
+	public void saveUser(User user) {
+		if(user.getId() == null) {
+			// Save as new 
+			String sql = "insert into Users set firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, password = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword()});
+		} else {
+			// Save as update
+		}
+	}
+	
+	public void deleteUserById(int id) {
+		String sql = "delete from Users where id = ?";
+		getJdbcTemplate().update(sql, new Object[] {id});
 	}
 	
 	public User getUserById(int id) {

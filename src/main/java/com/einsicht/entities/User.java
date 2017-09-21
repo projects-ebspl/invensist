@@ -1,7 +1,8 @@
 package com.einsicht.entities;
 
 public class User {
-	private int id;
+	
+	private Integer id;
 	
 	private String firstName;
 	
@@ -13,20 +14,23 @@ public class User {
 	
 	private String address;
 	
+	private String password;
+	
 	private Role [] roles;
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public User setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
 	/**
@@ -39,8 +43,9 @@ public class User {
 	/**
 	 * @param firstName the firstName to set
 	 */
-	public void setFirstName(String firstName) {
+	public User setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 
 	/**
@@ -53,8 +58,9 @@ public class User {
 	/**
 	 * @param lastName the lastName to set
 	 */
-	public void setLastName(String lastName) {
+	public User setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 
 	/**
@@ -67,8 +73,9 @@ public class User {
 	/**
 	 * @param email the email to set
 	 */
-	public void setEmail(String email) {
+	public User setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 
 	/**
@@ -81,8 +88,9 @@ public class User {
 	/**
 	 * @param phone the phone to set
 	 */
-	public void setPhone(String phone) {
+	public User setPhone(String phone) {
 		this.phone = phone;
+		return this;
 	}
 
 	/**
@@ -95,8 +103,9 @@ public class User {
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(String address) {
+	public User setAddress(String address) {
 		this.address = address;
+		return this;
 	}
 
 	/**
@@ -109,7 +118,22 @@ public class User {
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(Role[] roles) {
+	public User setRoles(Role[] roles) {
 		this.roles = roles;
+		return this;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

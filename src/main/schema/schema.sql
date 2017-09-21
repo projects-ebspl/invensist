@@ -6,7 +6,8 @@ create table Users (
 	phone varchar(32),
 	address text,
 	password text,
-	primary key (id)
+	primary key (id),
+	constraint uk_user_email unique (email)
 );
 insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123"); 
 create table Roles (
@@ -57,35 +58,13 @@ create table ComboItemBreakUp (
 	constraint fk_comboitemId foreign key (comboitemId) references Item(id),
 	constraint fk_childitemid foreign key (childitemid) references Item(id)
 );	
-create table Vendour (
+create table Account (
 	id int not null auto_increment,
 	name varchar(64) not null,
 	address text,
 	phone varchar(32),
 	email varchar(64),
 	primary key (id)
-);
-create table VendourItem (
-	vendour int not null,
-	item int not null,
-	primary key (vendour, item),
-	constraint fk_vendour foreign key (vendour) references Vendour(id),
-	constraint fk_item_in_vendouritem foreign key (item) references Item(id)
-);
-create table Client (
-	id int not null auto_increment,
-	name varchar(64) not null,
-	address text,
-	phone varchar(32),
-	email varchar(64),
-	primary key (id)
-);
-create table ClientItem (
-	client int not null,
-	item int not null,
-	primary key (client, item),
-	constraint fk_client foreign key (client) references Client(id),
-	constraint fk_item_in_clientitem foreign key (item) references Item(id)
 );
 create table Orders (
 	id int not null auto_increment,
@@ -93,7 +72,7 @@ create table Orders (
 	created datetime,
 	due datetime,
 	primary key (id),
-	constraint fk_client_in_orders foreign key (client) references Client(id)
+	constraint fk_client_in_orders foreign key (client) references Account(id)
 );
 create table OrderItem(
 	orderid int not null,
@@ -114,7 +93,7 @@ create table AssemblyInvoice (
 	confirmmessage text,
 	primary key (id),
 	constraint fk_order_in_invoiceitem foreign key (orderid) references Orders(id),
-	constraint fk_vendour_in_invoiceitem foreign key (vendour) references Vendour(id)
+	constraint fk_vendour_in_invoiceitem foreign key (vendour) references Account(id)
 );
 create table AssemblyInvoiceItem(
 	invoice int not null,
