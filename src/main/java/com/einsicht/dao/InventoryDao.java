@@ -49,4 +49,13 @@ public class InventoryDao extends BaseDao {
 		getJdbcTemplate().update(sql, new Object[] {id});
 	}
 	
+	public void assignStoreToUser(int userId, int storeId) {
+		String sql = "insert into UserStoreMapping values (?, ?)";
+		getJdbcTemplate().update(sql, new Object[] {userId, storeId});
+	}
+
+	public void removeStoreFromUser(int userId, int storeId) {
+		String sql = "delete from UserStoreMapping where user = ? and store = ?";
+		getJdbcTemplate().update(sql, new Object[] {userId, storeId});
+	}
 }

@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -128,5 +129,27 @@ public class InventoryDaoTest extends BaseDaoTest {
 		} catch (EmptyResultDataAccessException e) {
 			// We except this exception. Don't worry.
 		}
+	}
+	
+	@Test
+	public void testAssignStoreToUser() {
+		InventoryDao dao = new InventoryDao();
+		setUp(dao);
+		try {
+			dao.assignStoreToUser(4, 3);
+		} catch (DataIntegrityViolationException e) {
+			// We expect this exception
+		}
+		List<Store> stores = dao.getStoresForUser(2);
+		assertNotNull(stores);
+		assertEquals(3, stores.size());
+		dao.assignStoreToUser(2, 2);
+		stores = dao.getStoresForUser(2);
+		assertNotNull(stores);
+		assertEquals(4, stores.size());
+		dao.removeStoreFromUser(2, 2);
+		stores = dao.getStoresForUser(2);
+		assertNotNull(stores);
+		assertEquals(3, stores.size());
 	}
 }
