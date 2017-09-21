@@ -1,24 +1,28 @@
 package com.einsicht.controller;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.entities.User;
 
 
-@RestController
+@Controller
 public class LoginController {
 	
 //	@Autowired
 //	private UserService userService;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
-	public ModelAndView login(){
+	public ModelAndView login(@RequestParam Map<String,String> allRequestParams){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;
@@ -55,14 +59,11 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		User user = userService.findUserByEmail(auth.getName());
-//		modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-//		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-//		modelAndView.setViewName("admin/home");
+		// Get user and save it in the session
+		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
 	
