@@ -54,9 +54,8 @@ create table Item (
 	itemcost double,
 	assemblycost double,
 	type enum ('single', 'combo'),
-	tax int,
 	primary key (id),
-	constraint fk_tax foreign key (tax) references InvoiceTax(id)
+	constraint uk_item_code unique (code)
 );
 create table ComboItemBreakUp (
 	comboitemId int not null,

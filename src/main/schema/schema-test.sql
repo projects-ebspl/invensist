@@ -57,6 +57,8 @@ create table InvoiceTax	(
 	percentage double,
 	primary key (id)
 );
+insert into InvoiceTax values(1, "cgst", 9);
+insert into InvoiceTax values(2, "sgst", 9);
 create table Item (
 	id int not null auto_increment,
 	code varchar(32),
@@ -64,10 +66,16 @@ create table Item (
 	itemcost double,
 	assemblycost double,
 	type enum ('single', 'combo'),
-	tax int,
 	primary key (id),
-	constraint fk_tax foreign key (tax) references InvoiceTax(id)
+	constraint uk_item_code unique (code)
 );
+insert into Item values (1, "S001", "Test-1", 40, null, "single");
+insert into Item values (2, "S002", "Test-2", 35, null, "single");
+insert into Item values (3, "S003", "Test-3", 37, null, "single");
+insert into Item values (4, "C001", "TestC-1", 87, 5, "combo");
+insert into Item values (5, "C002", "TestC-2", 104, 7, "combo");
+insert into Item values (6, "C003", "TestC-3", 146, 13, "combo");
+
 create table ComboItemBreakUp (
 	comboitemId int not null,
 	childitemid int not null,
