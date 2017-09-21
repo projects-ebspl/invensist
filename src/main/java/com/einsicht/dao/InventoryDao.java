@@ -70,4 +70,23 @@ public class InventoryDao extends BaseDao {
 		String sql = "select id, code, description, itemcost, assemblycost, type from Item where code = ?";
 		return getJdbcTemplate().queryForObject(sql, new Object[] {code}, new ItemRowMapper());
 	}
+
+	public void saveItem(Item item) {
+		if(item.getId() == null) {
+			// Save as new 
+			String sql = "insert into Item set code = ?, description = ?, itemcost = ?, assemblycost = ?, type = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {item.getCode(), item.getDescription(), item.getItemcost(), item.getAssemblycost(), item.getType().name()});
+		} else {
+			// Save as update
+			String sql = "update Item set code = ?, description = ?, itemcost = ?, assemblycost = ?, type = ? where id = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {item.getCode(), item.getDescription(), item.getItemcost(), item.getAssemblycost(), 
+							item.getType().name(), item.getId()});
+		}
+	}
+	
+	public void deleteItemById(int id) {
+		deleteObjectFromTableById("Item", id);
+	}
 }

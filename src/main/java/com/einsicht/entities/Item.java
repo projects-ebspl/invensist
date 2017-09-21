@@ -4,7 +4,7 @@ import com.einsicht.enums.ItemType;
 
 public class Item {
 	
-	private int id;
+	private Integer id;
 	
 	private String code;
 	
@@ -19,14 +19,14 @@ public class Item {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public Item setId(int id) {
+	public Item setId(Integer id) {
 		this.id = id;
 		return this;
 	}
