@@ -65,4 +65,9 @@ public class InventoryDao extends BaseDao {
 		String sql = "select id, code, description, itemcost, assemblycost, type from Item";
 		return getJdbcTemplate().query(sql, new ItemRowMapper());				
 	}
+	
+	public Item getItemByCode(String code) {
+		String sql = "select id, code, description, itemcost, assemblycost, type from Item where code = ?";
+		return getJdbcTemplate().queryForObject(sql, new Object[] {code}, new ItemRowMapper());
+	}
 }

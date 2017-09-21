@@ -205,4 +205,25 @@ public class InventoryDaoTest extends BaseDaoTest {
 		assertEquals(13, items.get(5).getAssemblycost(),0.01);
 		assertEquals(ItemType.combo, items.get(5).getType());
 	}
+	
+	@Test
+	public void testGetItemByCode() {
+		InventoryDao dao = new InventoryDao();
+		setUp(dao);
+		
+		try {
+			dao.getItemByCode("AAA");
+			fail("We expect exception here");
+		} catch (EmptyResultDataAccessException e) {
+			// We expect this. Don't worry
+		}
+		
+		Item item = dao.getItemByCode("S001");
+		assertEquals(1, item.getId());
+		assertEquals("S001", item.getCode());
+		assertEquals("Test-1", item.getDescription());
+		assertEquals(40, item.getItemcost(),0.01);
+		assertEquals(0, item.getAssemblycost(), 0.01);
+		assertEquals(ItemType.single, item.getType());
+	}
 }
