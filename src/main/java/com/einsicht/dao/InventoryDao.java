@@ -38,10 +38,9 @@ public class InventoryDao extends BaseDao {
 			String sql = "insert into Stores set name = ?, type = ?";
 			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getType().name()});
 		} else {
-//			// Save as update
-//			String sql = "update Users set  firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, password = ? where id = ?";
-//			getJdbcTemplate().update(sql, 
-//					new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword(), user.getId()});
+			// Save as update
+			String sql = "update Stores set name = ?, type = ? where id = ?";
+			getJdbcTemplate().update(sql, new Object[] {store.getName(), store.getType().name(), store.getId()});
 		}
 	}
 	

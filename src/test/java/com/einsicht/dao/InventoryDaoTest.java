@@ -104,4 +104,29 @@ public class InventoryDaoTest extends BaseDaoTest {
 		}
 	}
 
+	@Test
+	public void testSaveStoreForEdit() throws Exception {
+		InventoryDao dao = new InventoryDao();
+		setUp(dao);
+
+		dao.saveStore(new Store().setName("MainNxt").setType(StoreType.regular));
+
+		Store store = dao.getStoresForName("MainNxt");
+		assertNotNull(store);
+		assertEquals(StoreType.regular, store.getType());
+		
+		store.setType(StoreType.rejection);
+		dao.saveStore(store);
+		store = dao.getStoresForName("MainNxt");
+		assertNotNull(store);
+		assertEquals(StoreType.rejection, store.getType());
+		
+		dao.deleteStoreById(store.getId());
+		try {
+			dao.getStoresForName("MainNxt");
+			fail("We except EmptyResultDataAccessException over here");
+		} catch (EmptyResultDataAccessException e) {
+			// We except this exception. Don't worry.
+		}
+	}
 }
