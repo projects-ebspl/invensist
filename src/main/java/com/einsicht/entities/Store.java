@@ -3,7 +3,7 @@ package com.einsicht.entities;
 import com.einsicht.enums.StoreType;
 
 public class Store {
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
@@ -12,15 +12,16 @@ public class Store {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public Store setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
 	/**
@@ -33,8 +34,9 @@ public class Store {
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	public Store setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	/**
@@ -47,7 +49,8 @@ public class Store {
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(StoreType type) {
+	public Store setType(StoreType type) {
 		this.type = type;
+		return this;
 	}
 }
