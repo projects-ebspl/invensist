@@ -34,6 +34,13 @@ create table Stores (
 	primary key (id),
 	constraint uk_name unique (name)
 );
+create table UserStoreMapping (
+	user int not null,
+	store int not null,
+	primary key (user, store),
+	constraint fk_user_inuserstoremapping foreign key (user) references Users(id),
+	constraint fk_store_inuserstoremapping foreign key (store) references Stores(id)
+);
 create table InvoiceTax	(
 	id int not null auto_increment,
 	name varchar(32) not null,

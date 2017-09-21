@@ -41,6 +41,16 @@ insert into Stores values (2, "Reject-1", "rejection");
 insert into Stores values (3, "Assembly-1", "assembly");
 insert into Stores values (4, "Wastage-1", "wastage");
 insert into Stores values (5, "Shortage-1", "shortage");
+create table UserStoreMapping (
+	user int not null,
+	store int not null,
+	primary key (user, store),
+	constraint fk_user_inuserstoremapping foreign key (user) references Users(id),
+	constraint fk_store_inuserstoremapping foreign key (store) references Stores(id)
+);
+insert into UserStoreMapping values (2, 1);
+insert into UserStoreMapping values (2, 3);
+insert into UserStoreMapping values (2, 5);
 create table InvoiceTax	(
 	id int not null auto_increment,
 	name varchar(32) not null,
