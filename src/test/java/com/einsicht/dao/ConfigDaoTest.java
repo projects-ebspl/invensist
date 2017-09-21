@@ -150,6 +150,40 @@ public class ConfigDaoTest extends BaseDaoTest {
 	}
 	
 	@Test
+	public void testSaveUserForEdit() throws Exception {
+		ConfigDao dao = new ConfigDao();
+		setUp(dao);
+
+		dao.saveUser(new User().setAddress("ADD").setEmail("test@einsicht.com").setFirstName("M").setLastName("H").setPhone("1234"));
+
+		User user = dao.getUserByEmail("test@einsicht.com");
+		assertNotNull(user);
+		assertEquals("M", user.getFirstName());
+		assertEquals("H", user.getLastName());
+		assertEquals("test@einsicht.com", user.getEmail());
+		assertEquals("1234", user.getPhone());
+		assertEquals("ADD", user.getAddress());
+		
+		user.setAddress("ADDNEW");
+		dao.saveUser(user);
+		user = dao.getUserByEmail("test@einsicht.com");
+		assertNotNull(user);
+		assertEquals("M", user.getFirstName());
+		assertEquals("H", user.getLastName());
+		assertEquals("test@einsicht.com", user.getEmail());
+		assertEquals("1234", user.getPhone());
+		assertEquals("ADDNEW", user.getAddress());
+		
+		dao.deleteUserById(user.getId());
+		try {
+			user = dao.getUserByEmail("test@einsicht.com");
+			fail("We except EmptyResultDataAccessException over here");
+		} catch (EmptyResultDataAccessException e) {
+			// We except this exception. Don't worry.
+		}
+	}
+
+	@Test
 	public void testResetPassword() throws Exception {
 		ConfigDao dao = new ConfigDao();
 		setUp(dao);

@@ -41,6 +41,9 @@ public class ConfigDao extends BaseDao {
 					new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword()});
 		} else {
 			// Save as update
+			String sql = "update Users set  firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, password = ? where id = ?";
+			getJdbcTemplate().update(sql, 
+					new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword(), user.getId()});
 		}
 	}
 	

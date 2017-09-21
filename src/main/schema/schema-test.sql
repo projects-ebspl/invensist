@@ -36,6 +36,11 @@ create table Stores (
 	primary key (id),
 	constraint uk_name unique (name)
 );
+insert into Stores values (1, "Main", "regular");
+insert into Stores values (2, "Reject-1", "rejection");
+insert into Stores values (3, "Assembly-1", "assembly");
+insert into Stores values (4, "Wastage-1", "wastage");
+insert into Stores values (5, "Shortage-1", "shortage");
 create table InvoiceTax	(
 	id int not null auto_increment,
 	name varchar(32) not null,
