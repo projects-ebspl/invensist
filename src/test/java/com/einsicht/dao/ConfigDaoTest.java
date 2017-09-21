@@ -148,4 +148,37 @@ public class ConfigDaoTest extends BaseDaoTest {
 			// We except this exception. Don't worry.
 		}
 	}
+	
+	@Test
+	public void testResetPassword() throws Exception {
+		ConfigDao dao = new ConfigDao();
+		setUp(dao);
+		try {
+			dao.saveUser(new User().setAddress("***").setEmail("mayuresh@einsicht.com").setFirstName("M").setLastName("H").setPhone("1234"));
+		} catch (DuplicateKeyException e) {
+			// We except this exception. So its ok.
+		}
+		dao.saveUser(new User().setAddress("ADD").setEmail("test@einsicht.com").setFirstName("M").setLastName("H").setPhone("1234").setPassword("abc1234"));
+		User user = dao.getUserByEmail("test@einsicht.com");
+		assertNotNull(user);
+		assertEquals("M", user.getFirstName());
+		assertEquals("H", user.getLastName());
+		assertEquals("test@einsicht.com", user.getEmail());
+		assertEquals("1234", user.getPhone());
+		assertEquals("ADD", user.getAddress());
+		assertEquals("abc1234", user.getPassword());
+		
+		dao.resetPassword(user.getId(), "1234abc");
+		user = dao.getUserById(user.getId());
+		assertEquals("1234abc", user.getPassword());
+		
+		dao.deleteUserById(user.getId());
+		try {
+			user = dao.getUserByEmail("test@einsicht.com");
+			fail("We except EmptyResultDataAccessException over here");
+		} catch (EmptyResultDataAccessException e) {
+			// We except this exception. Don't worry.
+		}
+	}
+	
 }

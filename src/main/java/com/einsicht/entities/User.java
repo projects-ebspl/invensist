@@ -133,7 +133,8 @@ public class User {
 	/**
 	 * @param password the password to set
 	 */
-	public void setPassword(String password) {
+	public User setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 }

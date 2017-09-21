@@ -14,7 +14,7 @@ import com.einsicht.entities.User;
 public class ConfigDao extends BaseDao {
 	
 	public List<User> getAllUsers() {
-		String sql = "select id as userid, firstname, lastname, email, phone, address from Users order by id";
+		String sql = "select id as userid, firstname, lastname, email, phone, address, password from Users order by id";
 		return getJdbcTemplate().query(sql, new RowMapper<User>() {
 			@Override
 			public User mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -25,7 +25,7 @@ public class ConfigDao extends BaseDao {
 	}
 	
 	public User getUserByEmail(String email) {
-		String sql = "select id as userid, firstname, lastname, email, phone, address from Users where email = '" + email + "'";
+		String sql = "select id as userid, firstname, lastname, email, phone, address, password from Users where email = '" + email + "'";
 		return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
 			@Override
 			public User mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -50,7 +50,7 @@ public class ConfigDao extends BaseDao {
 	}
 	
 	public User getUserById(int id) {
-		String sql = "select id as userid, firstname, lastname, email, phone, address from Users where id = " + id;
+		String sql = "select id as userid, firstname, lastname, email, phone, address, password from Users where id = " + id;
 		return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
 			@Override
 			public User mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -90,9 +90,15 @@ public class ConfigDao extends BaseDao {
 		user.setId(rs.getInt("userid"));
 		user.setLastName(rs.getString("lastName"));
 		user.setPhone(rs.getString("phone"));
+		user.setPassword(rs.getString("password"));
 		List<Role> roles = getRolesForUser(rs.getInt("userid"));
 		user.setRoles(roles.toArray(new Role[roles.size()]));
 		return user;
+	}
+	
+	public void resetPassword(int userId, String password) {
+		String sql = "update Users set password = ? where id = ?";
+		getJdbcTemplate().update(sql, new Object[] {password, userId});
 	}
 	
 }
