@@ -1,0 +1,56 @@
+<head th:fragment="header">
+<title>Vasumati Inventory Manager</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen" th:href="@{/css/style.css}" />
+</head>
+
+<div class="menu-holder" th:fragment="menu">
+	<ul class="accordion" id="test" data-en-type="accordian">
+		<li><a class="toggle" data-en-type="accordian-button"
+			href="javascript:void(0);">Home</a>
+			<ul class="accordion-inner">
+				<li><a href="#">Logout</a></li>
+			</ul></li>
+
+		<li><a class="toggle" data-en-type="accordian-button"
+			href="javascript:void(0);">Configuration</a>
+			<ul class="accordion-inner">
+				<li><a href="#">Users</a></li>
+				<li><a href="#">Roles</a></li>
+				<li><a href="#">Stores</a></li>
+				<li><a href="#">Items</a></li>
+			</ul></li>
+
+		<li><a class="toggle" data-en-type="accordian-button"
+			href="javascript:void(0);">Inventory</a>
+			<ul class="accordion-inner">
+				<li><a href="#">Inward</a></li>
+				<li><a href="#">Transfer</a></li>
+				<li><a href="#">Wastage</a></li>
+				<li><a href="#">Shortage</a></li>
+				<li><a href="#">Assembly</a></li>
+				<li><a href="#">BreakUp</a></li>
+			</ul></li>
+
+		<li><a class="toggle" data-en-type="accordian-button"
+			href="javascript:void(0);">Planning</a>
+			<ul class="accordion-inner">
+				<li><a href="#">Orders</a></li>
+				<li><a href="#">Invoices</a></li>
+			</ul></li>
+
+		<li><a class="toggle" data-en-type="accordian-button"
+			href="javascript:void(0);">Reports</a>
+			<ul class="accordion-inner">
+				<li><a href="#">Real Time Inventory</a></li>
+				<li><a href="#">Rejections</a></li>
+				<li><a href="#">Orders</a></li>
+				<li><a href="#">Invoices</a></li>
+				<li><a href="#">Shortages</a></li>
+				<li><a href="#">Wastages</a></li>
+				<li><a href="#">Store Statements</a></li>
+			</ul></li>
+	</ul>
+</div>
+
+

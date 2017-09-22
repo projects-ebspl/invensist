@@ -1,15 +1,11 @@
 package com.einsicht.controller;
 
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.entities.User;
@@ -18,11 +14,8 @@ import com.einsicht.entities.User;
 @Controller
 public class LoginController {
 	
-//	@Autowired
-//	private UserService userService;
-
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam Map<String,String> allRequestParams){
+	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;
@@ -63,7 +56,7 @@ public class LoginController {
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
 		// Get user and save it in the session
-		modelAndView.setViewName("admin/home");
+		modelAndView.setViewName("home");
 		return modelAndView;
 	}
 	
