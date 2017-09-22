@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Good Thymes Virtual Grocery</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen" href="../static/css/style.css"  th:href="@{/css/style.css}" />
+</head>
+
+<body>
+	<nav>
+		<div class="menu-item">
+			<h4>
+				<a href="home.html" th:href="@{/admin/config}">Home</a>
+			</h4>
+			<ul>
+				<li><a href="#">Logout</a></li>				
+			</ul>
+		</div>
+
+		<div class="menu-item">
+			<h4>
+				<a href="admin/config.html" th:href="@{/admin/config}">Configuration</a>
+			</h4>
+			<ul>
+				<li><a href="#">Add User</a></li>
+				<li><a href="#">Delete User</a></li>
+				<li><a href="#">Add Role</a></li>
+			</ul>
+		</div>
+
+		<div class="menu-item">
+			<h4>
+				<a href="product/inventory.html" th:href="@{/product/inventory}">Inventory</a>
+			</h4>
+			<ul>
+				<li><a href="#">View details</a></li>
+				<li><a href="#">Add Item</a></li>
+				<li><a href="#">view Item</a></li>
+			</ul>
+		</div>
+
+		<div class="menu-item">
+			<h4>
+				<a href="product/planning.html" th:href="@{/product/planning}">Planning</a>
+			</h4>
+			<ul>
+				<li><a href="#">Phone</a></li>
+				<li><a href="#">Email</a></li>
+				<li><a href="#">Location</a></li>
+			</ul>
+		</div>
+	</nav>
+
+</body>
+
+</html>
+
