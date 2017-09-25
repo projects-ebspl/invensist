@@ -5,10 +5,36 @@
 <body>
 	<div>
 		<div th:replace="fragments :: menu"></div>
-		<div class="content-holder">AA</div>
+		<div class="content-holder">
+			<table id="table">
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+				</tr>
+				<tr>
+					<td>Mayuresh</td>
+					<td>Halshikar</td>
+				</tr>
+				<tr>
+					<td>Prasad</td>
+					<td>Wagh</td>
+				</tr>
+				<tr>
+					<td>Yogi</td>
+					<td>Singh</td>
+				</tr>
+			</table>
+			<button id="test">Test</button>
+		</div>
 		<div style="clear: both;"></div>
 	</div>
 </body>
-<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	var table = $("#table").inv_table();
+	$("#test").click(function() {
+		alert(table.selected());
+	});
+</script>
 </html>
 

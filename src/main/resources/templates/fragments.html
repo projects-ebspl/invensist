@@ -4,13 +4,13 @@
 <link rel="stylesheet" media="screen" th:href="@{/css/style.css}" />
 </head>
 
-<p th:fragment="footer" class="footer">
+<p th:fragment="scripts">
 	<script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
 	<script type="text/javascript" th:src="@{/js/einsicht-inventory.js}"></script>
 </p>
 
 <div class="menu-holder" th:fragment="menu">
-	<ul class="accordion" id="test" data-en-type="accordian">
+	<ul class="accordion" data-en-type="accordian">
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Home</a>
 			<ul class="accordion-inner">
