@@ -12,7 +12,7 @@ public class ForwardController {
 	@RequestMapping(value="/page/{page}", method = RequestMethod.GET)
 	public ModelAndView forward(@PathVariable("page") String page) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName(page);
+		modelAndView.setViewName("pages/" + page);
 		return modelAndView;
 	}
 	
