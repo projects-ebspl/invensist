@@ -7,7 +7,7 @@
 	<div>
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
-			<div data-en-type="page-title" data-en-text="Add User"></div>
+			<div data-en-type="page-title" th:inline="text">Add User</div>
 			<form method="post" th:object="${user}" th:action="@{/user}">
 				<div class="form">
 					<div class="form-item">
