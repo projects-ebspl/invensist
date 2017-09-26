@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.einsicht.models.ResetPassword;
 import com.einsicht.models.User;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
@@ -35,17 +36,23 @@ public class ConfigController {
 		return mv;
 	}
 	
-//	@GetMapping("/reset-password")
-//	public ModelAndView resetPassword(Model model) {
-//		model.addAttribute("resetPassword", new ResetPassword());
-//		return "pages/user";
-//	}
-//	
-//	@GetMapping("/reset-password")
-//	public String resetPassword(Model model) {
-//		model.addAttribute("resetPassword", new ResetPassword());
-//		return "pages/user";
-//	}
+	@PostMapping("/reset-password")
+	public ModelAndView resetPassword(@ModelAttribute("resetPassword")ResetPassword resetPassword) {
+		// TODO Reset Password
+		boolean success = true;
+		if(success) {
+			return new SuccessMessageModelAndView("The password is resetted successfully.");
+		} else {
+			return new ErrorMessageModelAndView("Error");
+		}
+	}
+	
+	@GetMapping("/reset-password")
+	public ModelAndView resetPassword() {
+		ModelAndView mv = new ModelAndView("pages/reset-password");
+		mv.addObject("resetPassword", new ResetPassword());
+		return mv;
+	}
 	
 	
 }
