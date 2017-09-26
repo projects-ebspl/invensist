@@ -1,5 +1,5 @@
 <head th:fragment="header">
-<title>Vasumati Inventory Manager</title>
+<title>Vasumati Inventory Manager <div th:text="${title}"></div></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" media="screen" th:href="@{/css/style.css}" />
 </head>
@@ -14,48 +14,49 @@
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Home</a>
 			<ul class="accordion-inner">
-				<li><a href="#">Logout</a></li>
+				<li><a href="/page/logout">Logout</a></li>
 				<li><a href="/page/reset-password">Reset Password</a></li>
 			</ul></li>
 
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Configuration</a>
 			<ul class="accordion-inner">
-				<li><a href="#">Users</a></li>
-				<li><a href="#">Roles</a></li>
-				<li><a href="#">Stores</a></li>
-				<li><a href="#">Store Assignment</a></li>
-				<li><a href="#">Items</a></li>
+				<li><a href="/page/users">Users</a></li>
+				<li><a href="/page/roles">Roles</a></li>
+				<li><a href="/page/stores">Stores</a></li>
+				<li><a href="/page/assign-store">Store Assignment</a></li>
+				<li><a href="/page/items">Items</a></li>
 			</ul></li>
 
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Inventory</a>
 			<ul class="accordion-inner">
-				<li><a href="#">Inward</a></li>
-				<li><a href="#">Transfer</a></li>
-				<li><a href="#">Wastage</a></li>
-				<li><a href="#">Shortage</a></li>
-				<li><a href="#">Assembly</a></li>
-				<li><a href="#">BreakUp</a></li>
+				<li><a href="/page/inward">Inward</a></li>
+				<li><a href="/page/transfer">Transfer</a></li>
+				<li><a href="/page/wastage">Wastage</a></li>
+				<li><a href="/page/shortage">Shortage</a></li>
+				<li><a href="/page/assembly">Assembly</a></li>
+				<li><a href="/page/breakup">BreakUp</a></li>
+				<li><a href="/page/outward">Outward</a></li>
 			</ul></li>
 
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Planning</a>
 			<ul class="accordion-inner">
-				<li><a href="#">Orders</a></li>
-				<li><a href="#">Invoices</a></li>
+				<li><a href="/page/orders">Orders</a></li>
+				<li><a href="/page/invoices">Invoices</a></li>
 			</ul></li>
 
 		<li><a class="toggle" data-en-type="accordian-button"
 			href="javascript:void(0);">Reports</a>
 			<ul class="accordion-inner">
-				<li><a href="#">Real Time Inventory</a></li>
-				<li><a href="#">Rejections</a></li>
-				<li><a href="#">Orders</a></li>
-				<li><a href="#">Invoices</a></li>
-				<li><a href="#">Shortages</a></li>
-				<li><a href="#">Wastages</a></li>
-				<li><a href="#">Store Statements</a></li>
+				<li><a href="/page/real">Real Time Inventory</a></li>
+				<li><a href="/page/rejectionreports">Rejections</a></li>
+				<li><a href="/page/orderreports">Orders</a></li>
+				<li><a href="/page/invoicereport">Invoices</a></li>
+				<li><a href="/page/shortagereport">Shortages</a></li>
+				<li><a href="/page/wastagereport">Wastages</a></li>
+				<li><a href="/page/storestatements">Store Statements</a></li>
 			</ul></li>
 	</ul>
 </div>

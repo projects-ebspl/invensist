@@ -2,6 +2,15 @@
 	$.fn.tag = function() {
 		return this.prop("tagName");
 	};
+	
+	$.fn.inv_pagetitle = function() {
+		$(this).addClass("page-title");
+		var span = $("<span/>")
+		span.html($(this).attr("data-en-text"));
+		$(this).append(span);
+		return this;
+	};
+
 	$.fn.inv_table = function(model) {
 		$(this).addClass("inv-table");
 		
@@ -56,4 +65,6 @@ $(function() {
 			$this.next().slideToggle(350);
 		}
 	});
+	
+	$("[data-en-type='page-title']").inv_pagetitle();
 });
