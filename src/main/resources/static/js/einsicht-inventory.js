@@ -6,7 +6,8 @@
 	$.fn.inv_pagetitle = function() {
 		$(this).addClass("page-title");
 		var span = $("<span/>")
-		span.html($(this).attr("data-en-text"));
+		span.html($(this).html());
+		$(this).html("");
 		$(this).append(span);
 		return this;
 	};
