@@ -1,4 +1,5 @@
 package com.einsicht.controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,10 +10,14 @@ import com.einsicht.models.ResetPassword;
 import com.einsicht.models.User;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
+import com.einsicht.services.ConfigService;
 
 
 @Controller
 public class ConfigController {
+	
+	@Autowired
+	private ConfigService service;
 	
 	@PostMapping("/user")
 	public ModelAndView user(@ModelAttribute("user")User user) {
