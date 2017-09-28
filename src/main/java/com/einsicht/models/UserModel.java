@@ -1,6 +1,9 @@
 package com.einsicht.models;
 
 public class UserModel {
+	
+	private int id;
+	
 	private String firstName;
 	
 	private String lastName;
@@ -18,6 +21,14 @@ public class UserModel {
 	private boolean planner;
 	
 	private boolean user;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the firstName
