@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments :: header"></div>
+<body>
+	<div>
+		<div th:replace="fragments :: menu"></div>
+		<div class="content-holder">
+			<div data-en-type="page-title" th:inline="text">Add Store ***</div>
+			<form method="post" th:object="${store}" th:action="@{/store}">
+				<div class="form">
+					<div class="form-item">
+						<div class="form-element">Name: </div>
+						<input class="form-element" type="text" th:field="*{name}"/>
+					</div>
+					<div class="form-item">
+						<div class="form-element">Type: </div>
+						 <select class="form-element" th:field="*{storeType}">
+						 	<option th:each="type : ${types}" th:value="${type}" th:text="${type.type}"></option>
+						 </select>
+					</div>
+				</div>
+				<div class="form-element"><input type="submit" ></div>
+			</form>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</body>
+<div th:replace="fragments :: scripts"></div>
+</html>
+

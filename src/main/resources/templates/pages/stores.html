@@ -7,10 +7,60 @@
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Stores</div>
+			<table id="stores-table">
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+				</tr>
+				<tr th:each="store : ${stores}" th:id="${store.id}">
+					<td th:inline="text">[[${store.name}]]</td>
+					<td th:inline="text">[[${store.type}]]</td>
+				</tr>
+			</table>
+			<ul class="button-bar">
+				<li><a class="link-button" href="/store" id="add-store">Add</a></li>
+				<li><a class="link-button" href="#" id="delete-store">Delete</a></li>
+				<li><a class="link-button" href="#" id="edit-store">Edit</a></li>
+			</ul>
 		</div>
 		<div style="clear: both;"></div>
+		<form method="post" id="edit-delete-form">
+			<input name="ids" id="ids" type="hidden">
+		</form>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	var storesTable = $("#stores-table").inv_table();
+	$("#delete-store").click(function() {
+		if(storesTable.selected() == 0) {
+			alert("Please select store(s) to delete");			
+		} else {
+			if (confirm('Are you sure you want to delete ?')) { // Standard confirmation message.
+				var selections = storesTable.selections();
+				$("#edit-delete-form").attr("action","/delete-stores");
+				$("#ids").val(selections);
+				console.log($("#ids").val());
+				$("#edit-delete-form").submit();
+		    }			
+		}
+	});
+	/*
+	$("#edit-store").click(function() {
+		if(storesTable.selected() == 0) {
+			alert("Select store to edit");
+		} else if(storesTable.selected() == 1) {
+			var selections = storesTable.selections();
+			$("#edit-delete-form").attr("action","/edit-store");
+			$("#ids").val(selections);
+			console.log($("#ids").val());
+			$("#edit-delete-form").submit();
+		} else {
+			alert("Only one store can be edited at a time");	
+		}
+	});
+	*/
+</script>
+
 </html>
 
