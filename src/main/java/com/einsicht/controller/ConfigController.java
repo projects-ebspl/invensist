@@ -1,16 +1,18 @@
 package com.einsicht.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.einsicht.enums.StoreType;
 import com.einsicht.models.ResetPassword;
+import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
@@ -89,4 +91,75 @@ public class ConfigController {
 		return mv;
 	}
 	
+	@GetMapping("/stores")
+	public ModelAndView stores() {
+		ArrayList<StoreModel> stores =  new ArrayList<StoreModel>();
+		for (int i = 1; i <= 5; i++) {
+			StoreModel store = new StoreModel();
+			store.setId(i);
+			switch(i) {
+				case 1: 
+					store.setName("Main");
+					store.setType(StoreType.regular);
+					break;
+				case 2: 
+					store.setName("Line");
+					store.setType(StoreType.assembly);
+					break;
+				case 3:
+					store.setName("Wastage-1");
+					store.setType(StoreType.wastage);
+					break;
+				case 4:
+					store.setName("Shortage-1");
+					store.setType(StoreType.shortage);
+					break;
+				case 5:
+					store.setName("Reject-1");
+					store.setType(StoreType.rejection);
+					break;
+			}
+			stores.add(store);
+		}
+		ModelAndView mv = new ModelAndView("pages/stores");
+		mv.addObject("stores", stores);
+		return mv;
+	}
+
+	@PostMapping("/delete-stores")
+	public ModelAndView deleteStores(@RequestParam("ids") String ids) {
+		// TODO Delete 
+		System.out.println(ids);
+		return stores();
+	}
+
+	@PostMapping("/edit-store")
+	public ModelAndView editStore(@RequestParam("ids") String id) {
+		ModelAndView mv = new ModelAndView("pages/store");
+		StoreModel store = new StoreModel();
+		store.setId(1);
+		store.setName("WASTAGE-2");
+		store.setType(StoreType.wastage);
+		mv.addObject("store", store);
+		return mv;
+	}
+
+	@PostMapping("/store")
+	public ModelAndView store(@ModelAttribute("store")StoreModel store) {
+		// TODO Save Store
+		boolean success = true;
+		if(success) {
+			return new SuccessMessageModelAndView("The store has been added successfully.");
+		} else {
+			return new ErrorMessageModelAndView("Error");
+		}
+	}
+	
+	@GetMapping("/store")
+	public ModelAndView store() {
+		ModelAndView mv = new ModelAndView("pages/store");
+		mv.addObject("store", new StoreModel());
+		mv.addObject("types", StoreType.values());
+		return mv;
+	}
 }
