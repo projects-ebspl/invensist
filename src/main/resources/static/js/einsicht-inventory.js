@@ -42,6 +42,13 @@
 			}
 		);
 		
+		this.selections = function() {
+			var result = [];
+			$(this).find(".row-selected").each(function(key, value) {
+				result.push($(this).attr("id"));
+			});
+			return result;
+		};
 		
 		
 		this.selected = function() {

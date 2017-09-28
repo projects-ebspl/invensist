@@ -14,7 +14,8 @@
 					<th>Email</th>
 					<th>Phone</th>
 				</tr>
-				<tr th:each="user : ${users}">
+				<tr th:each="user : ${users}" th:id="${user.id}">
+					<td th:inline="text" style="display: none;">[[${user.id}]]</td>
 					<td th:inline="text">[[${user.firstName}]]</td>
 					<td th:inline="text">[[${user.lastName}]]</td>
 					<td th:inline="text">[[${user.email}]]</td>
@@ -23,16 +24,31 @@
 			</table>
 			<ul class="button-bar">
 				<li><a class="link-button" href="/user">Add</a></li>
-				<li><a class="link-button" href="#">Delete</a></li>
+				<li><a class="link-button" href="#" id="delete-user">Delete</a></li>
 				<li><a class="link-button" href="#">Edit</a></li>
 			</ul>
 		</div>
 		<div style="clear: both;"></div>
+		<form action="/delete-users" method="post" id="delete-form">
+			<input name="userstodelete" id="userstodelete" type="hidden">
+		</form>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
 <script type="text/javascript">
-	$("#users-table").inv_table();
+	var usersTable = $("#users-table").inv_table();
+	$("#delete-user").click(function() {
+		if(usersTable.selected() == 0) {
+			alert("Please select user(s) to delete");			
+		} else {
+			if (confirm('Are you sure you want to delete ?')) { // Standard confirmation message.
+				var selections = usersTable.selections();
+				$("#userstodelete").val(selections);
+				console.log($("#userstodelete").val());
+				$("#delete-form").submit();
+		    }			
+		}
+	});
 </script>
 </html>
 

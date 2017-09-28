@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.models.ResetPassword;
@@ -39,6 +41,13 @@ public class ConfigController {
 		return mv;
 	}
 	
+	@PostMapping("/delete-users")
+	public ModelAndView deleteUsers(@RequestParam("userstodelete") String ids) {
+		// TODO Delete 
+		System.out.println(ids);
+		return users();
+	}
+	
 	@PostMapping("/reset-password")
 	public ModelAndView resetPassword(@ModelAttribute("resetPassword")ResetPassword resetPassword) {
 		// TODO Reset Password
@@ -62,6 +71,7 @@ public class ConfigController {
 		ArrayList<UserModel> users =  new ArrayList<UserModel>();
 		for (int i = 1; i <= 5; i++) {
 			UserModel user = new UserModel();
+			user.setId(i);
 			user.setFirstName("FN:" + i);
 			user.setLastName("LN" + i);
 			user.setEmail("email@einsicht.com");
