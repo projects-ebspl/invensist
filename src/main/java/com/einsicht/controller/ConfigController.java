@@ -41,8 +41,23 @@ public class ConfigController {
 		return mv;
 	}
 	
+	
+	@PostMapping("/edit-user")
+	public ModelAndView editUser(@RequestParam("ids") String id) {
+		ModelAndView mv = new ModelAndView("pages/user");
+		UserModel user = new UserModel();
+		user.setId(1);
+		user.setFirstName("FN:" + 1);
+		user.setLastName("LN" + 1);
+		user.setEmail("email@einsicht.com");
+		user.setAdmin(true);
+		user.setPhone("123456789");
+		mv.addObject("user", user);
+		return mv;
+	}
+	
 	@PostMapping("/delete-users")
-	public ModelAndView deleteUsers(@RequestParam("userstodelete") String ids) {
+	public ModelAndView deleteUsers(@RequestParam("ids") String ids) {
 		// TODO Delete 
 		System.out.println(ids);
 		return users();

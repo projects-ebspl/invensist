@@ -23,14 +23,14 @@
 				</tr>
 			</table>
 			<ul class="button-bar">
-				<li><a class="link-button" href="/user">Add</a></li>
+				<li><a class="link-button" href="/user" id="add-user">Add</a></li>
 				<li><a class="link-button" href="#" id="delete-user">Delete</a></li>
-				<li><a class="link-button" href="#">Edit</a></li>
+				<li><a class="link-button" href="#" id="edit-user">Edit</a></li>
 			</ul>
 		</div>
 		<div style="clear: both;"></div>
-		<form action="/delete-users" method="post" id="delete-form">
-			<input name="userstodelete" id="userstodelete" type="hidden">
+		<form method="post" id="edit-delete-form">
+			<input name="ids" id="ids" type="hidden">
 		</form>
 	</div>
 </body>
@@ -43,10 +43,25 @@
 		} else {
 			if (confirm('Are you sure you want to delete ?')) { // Standard confirmation message.
 				var selections = usersTable.selections();
-				$("#userstodelete").val(selections);
-				console.log($("#userstodelete").val());
-				$("#delete-form").submit();
+				$("#edit-delete-form").attr("action","/delete-users");
+				$("#ids").val(selections);
+				console.log($("#ids").val());
+				$("#edit-delete-form").submit();
 		    }			
+		}
+	});
+	
+	$("#edit-user").click(function() {
+		if(usersTable.selected() == 0) {
+			alert("Select user to edit");
+		} else if(usersTable.selected() == 1) {
+			var selections = usersTable.selections();
+			$("#edit-delete-form").attr("action","/edit-user");
+			$("#ids").val(selections);
+			console.log($("#ids").val());
+			$("#edit-delete-form").submit();
+		} else {
+			alert("Only one user can be edited at a time");	
 		}
 	});
 </script>
