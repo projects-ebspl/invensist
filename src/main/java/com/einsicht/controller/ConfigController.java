@@ -1,5 +1,5 @@
 package com.einsicht.controller;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +25,8 @@ public class ConfigController {
 	
 	@PostMapping("/user")
 	public ModelAndView user(@ModelAttribute("user")UserModel user) {
-		// TODO Save User
-		boolean success = true;
+		
+		boolean success = service.saveUser(user);
 		if(success) {
 			return new SuccessMessageModelAndView("The user has been added successfully.");
 		} else {
@@ -82,18 +82,8 @@ public class ConfigController {
 	}
 	
 	@GetMapping("/users")
-	public ModelAndView users() {
-		ArrayList<UserModel> users =  new ArrayList<UserModel>();
-		for (int i = 1; i <= 5; i++) {
-			UserModel user = new UserModel();
-			user.setId(i);
-			user.setFirstName("FN:" + i);
-			user.setLastName("LN" + i);
-			user.setEmail("email@einsicht.com");
-			user.setAdmin(true);
-			user.setPhone(i + "123456789");
-			users.add(user);
-		}
+	public ModelAndView users() {		
+		List<UserModel> users =  service.getUsers();
 		ModelAndView mv = new ModelAndView("pages/users");
 		mv.addObject("users", users);
 		return mv;

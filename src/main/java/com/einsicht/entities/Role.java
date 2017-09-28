@@ -1,12 +1,17 @@
 package com.einsicht.entities;
 
-public class Role {
-	
-	private int id;
+public enum Role { ADMIN("admin",1),PLANNER("planner",2),USER("user",3);
 	
 	private String name;
 	
 	private String description;
+	
+	private int id;
+	
+	Role(String name, int id){
+		this.name = name;
+		this.id = id;
+	}	
 
 	/**
 	 * @return the id
@@ -48,5 +53,28 @@ public class Role {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	/**
+	 * Returns Role for the given name
+	 * @param Name
+	 * @return Role
+	 */
+	public static Role geRoleByName(String name) {
+		for (Role role : values()) {
+			if(role.name.equalsIgnoreCase(name)) return role;
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns Role for the given id
+	 * @param  id
+	 * @return Role
+	 */
+	public static Role geRoleById(int id) {
+		for (Role role : values()) {
+			if(role.id == id) return role;
+		}
+		return null;
 	}
 }

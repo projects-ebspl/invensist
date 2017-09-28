@@ -16,7 +16,11 @@ public class User {
 	
 	private String password;
 	
-	private Role [] roles;
+	private boolean admin;
+
+	private boolean planner;
+
+	private boolean user;
 
 	/**
 	 * @return the id
@@ -107,22 +111,6 @@ public class User {
 		this.address = address;
 		return this;
 	}
-
-	/**
-	 * @return the roles
-	 */
-	public Role[] getRoles() {
-		return roles;
-	}
-
-	/**
-	 * @param roles the roles to set
-	 */
-	public User setRoles(Role[] roles) {
-		this.roles = roles;
-		return this;
-	}
-
 	/**
 	 * @return the password
 	 */
@@ -137,4 +125,32 @@ public class User {
 		this.password = password;
 		return this;
 	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public User setAdmin(boolean admin) {
+		this.admin = admin;
+		return this;
+	}
+
+	public boolean isPlanner() {
+		return planner;
+	}
+
+	public User setPlanner(boolean planner) {
+		this.planner = planner;
+		return this;
+	}
+
+	public boolean isUser() {
+		return user;
+	}
+
+	public User setUser(boolean user) {
+		this.user = user;
+		return this;
+	}
+	
 }

@@ -6,11 +6,14 @@ create table Users (
 	phone varchar(32),
 	address text,
 	password text,
+	roleAdmin tinyint,
+	rolePlanner tinyint,
+	roleUser tinyint,
 	primary key (id),
 	constraint uk_user_email unique (email)
 );
-insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123");
-insert into Users values (2,"Mayuresh","Halshikar","mayuresh@einsicht.com","1234","----","mayuresh123");
+insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123",1,1,1);
+insert into Users values (2,"Mayuresh","Halshikar","mayuresh@einsicht.com","1234","----","mayuresh123",1,1,1);
 create table Roles (
 	id int not null auto_increment,
 	name varchar(64),
@@ -20,15 +23,6 @@ create table Roles (
 insert into Roles values (1, "Admin", "Administrator");
 insert into Roles values (2, "Planner", "Planning invoices");
 insert into Roles values (3, "User", "Regular user");
-create table UserRoleMapping (
-	user int not null,
-	role int not null,
-	primary key (user, role),
-	constraint fk_user foreign key (user) references Users(id),
-	constraint fk_role foreign key (role) references Roles(id)
-);
-insert into UserRoleMapping values (1,1);
-insert into UserRoleMapping values (2,2);
 create table Stores (
 	id int not null auto_increment,
 	name varchar(64) not null,
@@ -41,16 +35,6 @@ insert into Stores values (2, "Reject-1", "rejection");
 insert into Stores values (3, "Assembly-1", "assembly");
 insert into Stores values (4, "Wastage-1", "wastage");
 insert into Stores values (5, "Shortage-1", "shortage");
-create table UserStoreMapping (
-	user int not null,
-	store int not null,
-	primary key (user, store),
-	constraint fk_user_inuserstoremapping foreign key (user) references Users(id),
-	constraint fk_store_inuserstoremapping foreign key (store) references Stores(id)
-);
-insert into UserStoreMapping values (2, 1);
-insert into UserStoreMapping values (2, 3);
-insert into UserStoreMapping values (2, 5);
 create table InvoiceTax	(
 	id int not null auto_increment,
 	name varchar(32) not null,

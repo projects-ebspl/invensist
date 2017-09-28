@@ -6,10 +6,13 @@ create table Users (
 	phone varchar(32),
 	address text,
 	password text,
+	roleAdmin tinyint,
+	rolePlanner tinyint,
+	roleUser tinyint,
 	primary key (id),
 	constraint uk_user_email unique (email)
 );
-insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123"); 
+insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123",1,1,1); 
 create table Roles (
 	id int not null auto_increment,
 	name varchar(64),
@@ -19,14 +22,6 @@ create table Roles (
 insert into Roles values (1, "Admin", "Administrator");
 insert into Roles values (2, "Planner", "Planning invoices");
 insert into Roles values (3, "User", "Regular user");
-create table UserRoleMapping (
-	user int not null,
-	role int not null,
-	primary key (user, role),
-	constraint fk_user foreign key (user) references Users(id),
-	constraint fk_role foreign key (role) references Roles(id)
-);
-insert into UserRoleMapping values (1,1);
 create table Stores (
 	id int not null auto_increment,
 	name varchar(64) not null,
