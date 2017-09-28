@@ -156,3 +156,19 @@ body {
     -webkit-border-radius: 5px;
     border-radius: 5px; 
 }
+
+
+.button-bar {
+	padding: 5px;
+	list-style-type: none;
+}
+
+.button-bar li {
+	display: inline;
+	padding: 0px 5px;
+}
+
+.link-button {
+	color: blue;
+	text-decoration: underline;
+}

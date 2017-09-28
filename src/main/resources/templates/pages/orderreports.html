@@ -1,0 +1,16 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments :: header"  th:with="title=${Reset}">
+</div>
+<body>
+	<div>
+		<div th:replace="fragments :: menu"></div>
+		<div class="content-holder">
+			<div data-en-type="page-title" th:inline="text">Orders Report</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</body>
+<div th:replace="fragments :: scripts"></div>
+</html>
+

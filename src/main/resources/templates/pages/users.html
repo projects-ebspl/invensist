@@ -1,16 +1,38 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments :: header"  th:with="title=${Reset}">
-</div>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments :: header" th:with="title=${Reset}"></div>
 <body>
 	<div>
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Users</div>
+			<table id="users-table">
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+				</tr>
+				<tr th:each="user : ${users}">
+					<td th:inline="text">[[${user.firstName}]]</td>
+					<td th:inline="text">[[${user.lastName}]]</td>
+					<td th:inline="text">[[${user.email}]]</td>
+					<td th:inline="text">[[${user.phone}]]</td>
+				</tr>
+			</table>
+			<ul class="button-bar">
+				<li><a class="link-button" href="/user">Add</a></li>
+				<li><a class="link-button" href="#">Delete</a></li>
+				<li><a class="link-button" href="#">Edit</a></li>
+			</ul>
 		</div>
 		<div style="clear: both;"></div>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	$("#users-table").inv_table();
+</script>
 </html>
 

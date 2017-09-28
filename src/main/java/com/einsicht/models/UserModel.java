@@ -1,6 +1,6 @@
 package com.einsicht.models;
 
-public class User {
+public class UserModel {
 	private String firstName;
 	
 	private String lastName;
@@ -29,9 +29,8 @@ public class User {
 	/**
 	 * @param firstName the firstName to set
 	 */
-	public User setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-		return this;
 	}
 
 	/**

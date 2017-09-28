@@ -1,4 +1,6 @@
 package com.einsicht.controller;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.models.ResetPassword;
-import com.einsicht.models.User;
+import com.einsicht.models.UserModel;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
 import com.einsicht.services.ConfigService;
@@ -20,7 +22,7 @@ public class ConfigController {
 	private ConfigService service;
 	
 	@PostMapping("/user")
-	public ModelAndView user(@ModelAttribute("user")User user) {
+	public ModelAndView user(@ModelAttribute("user")UserModel user) {
 		// TODO Save User
 		boolean success = true;
 		if(success) {
@@ -33,7 +35,7 @@ public class ConfigController {
 	@GetMapping("/user")
 	public ModelAndView user() {
 		ModelAndView mv = new ModelAndView("pages/user");
-		mv.addObject("user", new User());
+		mv.addObject("user", new UserModel());
 		return mv;
 	}
 	
@@ -55,5 +57,21 @@ public class ConfigController {
 		return mv;
 	}
 	
+	@GetMapping("/users")
+	public ModelAndView users() {
+		ArrayList<UserModel> users =  new ArrayList<UserModel>();
+		for (int i = 1; i <= 5; i++) {
+			UserModel user = new UserModel();
+			user.setFirstName("FN:" + i);
+			user.setLastName("LN" + i);
+			user.setEmail("email@einsicht.com");
+			user.setAdmin(true);
+			user.setPhone(i + "123456789");
+			users.add(user);
+		}
+		ModelAndView mv = new ModelAndView("pages/users");
+		mv.addObject("users", users);
+		return mv;
+	}
 	
 }
