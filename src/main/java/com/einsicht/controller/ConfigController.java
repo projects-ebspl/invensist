@@ -27,8 +27,8 @@ public class ConfigController {
 	
 	@PostMapping("/user")
 	public ModelAndView user(@ModelAttribute("user")UserModel user) {
-		
 		boolean success = service.saveUser(user);
+
 		if(success) {
 			return new SuccessMessageModelAndView("The user has been added successfully.");
 		} else {
