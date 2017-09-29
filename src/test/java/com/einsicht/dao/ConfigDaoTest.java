@@ -11,7 +11,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.einsicht.entities.User;
-public class ConfigDaoTest extends BaseDaoTest {
+public class ConfigDaoTest extends BaseTest {
 	
 	@Test
 	public void testGetAllUsers() throws Exception {

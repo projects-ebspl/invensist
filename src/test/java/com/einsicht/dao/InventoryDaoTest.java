@@ -16,7 +16,7 @@ import com.einsicht.entities.Store;
 import com.einsicht.enums.ItemType;
 import com.einsicht.enums.StoreType;
 
-public class InventoryDaoTest extends BaseDaoTest {
+public class InventoryDaoTest extends BaseTest {
 	
 	@Test
 	public void testGetAllStores() {

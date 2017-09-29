@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,14 +28,32 @@ public class ConfigController {
 	private ConfigService service;
 	
 	@PostMapping("/user")
-	public ModelAndView user(@ModelAttribute("user")UserModel user) {
-		boolean success = service.saveUser(user);
+	public ModelAndView user(@ModelAttribute("user")UserModel user, BindingResult bindingResult ) {		
 
-		if(success) {
-			return new SuccessMessageModelAndView("The user has been added successfully.");
-		} else {
-			return new ErrorMessageModelAndView("Error");
+		UserModel userExists = service.getUserByEmail(user.getEmail());		
+		if (userExists != null) {
+			bindingResult
+			.rejectValue("email", "error.user",
+					"There is already a user registered with the email provided");
 		}
+		if (user.getEmail() == null || user.getFirstName() == null || user.getPhone() == null) {
+			bindingResult
+			.rejectValue("email", "error.user",
+					"email, first name and phone number can not be empty");
+		}
+		if (!user.isAdmin() || !user.isPlanner() || !user.isUser()) {
+			bindingResult
+			.rejectValue("email", "error.user",
+					"please select atleast one Role");
+		}
+		if (bindingResult.hasErrors()) {
+			ModelAndView mv = new ModelAndView("pages/user");
+			mv.addObject("user", new UserModel());
+			return mv;
+		} else {
+			service.saveUser(user);
+			return users();
+		}		
 	}
 	
 	@GetMapping("/user")
@@ -61,7 +80,7 @@ public class ConfigController {
 	
 	@PostMapping("/delete-users")
 	public ModelAndView deleteUsers(@RequestParam("ids") String ids) {
-		// TODO Delete 
+		service.deleteUsers(ids); 
 		System.out.println(ids);
 		return users();
 	}
