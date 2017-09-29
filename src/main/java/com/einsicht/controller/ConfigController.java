@@ -60,7 +60,7 @@ public class ConfigController {
 	
 	@PostMapping("/delete-users")
 	public ModelAndView deleteUsers(@RequestParam("ids") String ids) {
-		// TODO Delete 
+		service.deleteUsers(ids); 
 		System.out.println(ids);
 		return users();
 	}

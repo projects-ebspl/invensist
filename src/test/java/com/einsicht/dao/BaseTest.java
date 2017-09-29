@@ -4,7 +4,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.einsicht.dao.BaseDao;
 
-public abstract class BaseDaoTest {
+public abstract class BaseTest {
 	
 	protected void setUp(BaseDao dao) {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
