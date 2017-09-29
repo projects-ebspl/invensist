@@ -39,7 +39,8 @@ public class ConfigService {
 		List<User> users = configDao.getAllUsers();
 		List<UserModel> userModels = new ArrayList<>();
 		for(User user:users){			
-			UserModel userModel = new UserModel();			
+			UserModel userModel = new UserModel();	
+			userModel.setId(user.getId());
 			userModel.setAddress(user.getAddress());
 			userModel.setEmail(user.getEmail());
 			userModel.setFirstName(user.getFirstName());

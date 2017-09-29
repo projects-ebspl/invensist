@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.enums.StoreType;
+import com.einsicht.models.AssignStoreModel;
 import com.einsicht.models.ResetPassword;
 import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
@@ -161,5 +162,19 @@ public class ConfigController {
 		mv.addObject("store", new StoreModel());
 		mv.addObject("types", StoreType.values());
 		return mv;
+	}
+
+	@GetMapping("/assign-store")
+	public ModelAndView assignStore() {
+		ModelAndView mv = new ModelAndView("pages/assign-store");
+		mv.addObject("users", service.getUsers());
+		mv.addObject("assignStore", new AssignStoreModel());
+		return mv;
+	}
+
+	@PostMapping("/assign-store")
+	public ModelAndView assignStore(@ModelAttribute("assignStore") AssignStoreModel assignStore) {
+		// TODO Save assign store mapping
+		return new SuccessMessageModelAndView("The store assignment is done successfully");
 	}
 }
