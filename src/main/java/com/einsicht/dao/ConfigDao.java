@@ -5,8 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
-
-
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -30,13 +29,17 @@ public class ConfigDao extends BaseDao {
 	
 	@Transactional("transactionManager")
 	public User getUserByEmail(String email) {
-		String sql = "select id as userid, firstname, lastname, email, phone, address, password, "
-				+ "roleAdmin, rolePlanner, roleUser from Users where email = '" + email + "'";
-		return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs, int arg1) throws SQLException {
-				return populateUser(rs, new User());
-			}});
+		try{
+			String sql = "select id as userid, firstname, lastname, email, phone, address, password, "
+					+ "roleAdmin, rolePlanner, roleUser from Users where email = '" + email + "'";
+			return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
+				@Override
+				public User mapRow(ResultSet rs, int arg1) throws SQLException {
+					return populateUser(rs, new User());
+				}});
+		}catch(EmptyResultDataAccessException e){			
+			return null;
+		}		
 	}
 	
 	@Transactional("transactionManager")
@@ -65,13 +68,19 @@ public class ConfigDao extends BaseDao {
 	}
 	
 	public User getUserById(int id) {
-		String sql = "select id as userid, firstname, lastname, email, phone, address, password, "
-				+ "roleAdmin, rolePlanner, roleUser from Users where id = " + id;
-		return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs, int arg1) throws SQLException {
-				return populateUser(rs, new User());
-			}});
+		try{
+			String sql = "select id as userid, firstname, lastname, email, phone, address, password, "
+					+ "roleAdmin, rolePlanner, roleUser from Users where id = " + id;
+			return getJdbcTemplate().queryForObject(sql, new RowMapper<User>() {
+				@Override
+				public User mapRow(ResultSet rs, int arg1) throws SQLException {
+					return populateUser(rs, new User());
+				}});
+		} catch(EmptyResultDataAccessException e){
+			
+			return null;
+		}
+		
 	}
 	
 	private User populateUser(ResultSet rs, User user) throws SQLException {
