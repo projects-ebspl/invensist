@@ -81,13 +81,22 @@ public class ConfigController {
 	}
 	
 	@PostMapping("/reset-password")
-	public ModelAndView resetPassword(@ModelAttribute("resetPassword")ResetPassword resetPassword) {
-		// TODO Reset Password
-		boolean success = true;
-		if(success) {
-			return new SuccessMessageModelAndView("The password is resetted successfully.");
+	public ModelAndView resetPassword(@Valid @ModelAttribute("resetPassword")ResetPassword resetPassword, BindingResult bindingResult) {
+
+		ModelAndView mv = new ModelAndView("pages/reset-password");
+		UserModel userExists = service.getUserByEmail(resetPassword.getEmail());		
+		if (userExists == null) {
+			bindingResult.rejectValue("email", "error.user", " This email is not registered");
+		}		
+		if (bindingResult.hasErrors()) {						
+			return mv;
 		} else {
-			return new ErrorMessageModelAndView("Error");
+			boolean success = service.resetPassword(resetPassword.getEmail(),resetPassword.getNewPassword());
+			if(success) {
+				return new SuccessMessageModelAndView("The password is resetted successfully.");
+			} else {
+				return new ErrorMessageModelAndView("Error");
+			}
 		}
 	}
 	

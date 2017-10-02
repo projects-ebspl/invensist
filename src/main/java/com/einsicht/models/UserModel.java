@@ -19,7 +19,7 @@ public class UserModel {
 	private String email;
 	
 	@NotEmpty(message = "*phone is mandatory")
-	@Size(max=10)
+	@Size(min=6,max=10)
 	private String phone;
 	
 	private String address;

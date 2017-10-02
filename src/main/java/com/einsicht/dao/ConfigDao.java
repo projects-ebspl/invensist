@@ -4,12 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.einsicht.entities.Role;
 import com.einsicht.entities.User;
 
 @Repository("configDao")
@@ -100,6 +99,12 @@ public class ConfigDao extends BaseDao {
 	public void resetPassword(int userId, String password) {
 		String sql = "update Users set password = ? where id = ?";
 		getJdbcTemplate().update(sql, new Object[] {password, userId});
+	}
+
+	public void resetPassword(String email, String password) {
+		String sql = "update Users set password = ? where email = ?";
+		getJdbcTemplate().update(sql, new Object[] {password, email});
+		
 	}
 	
 }

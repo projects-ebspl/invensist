@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.einsicht.dao.ConfigDao;
 import com.einsicht.entities.User;
+import com.einsicht.models.ResetPassword;
 import com.einsicht.models.UserModel;
 
 @Service
@@ -118,6 +119,12 @@ public class ConfigService {
 
 	public void setDao(ConfigDao dao) {
 		this.configDao = dao;
+		
+	}
+
+	public boolean resetPassword(String email, String password) {
+		this.configDao.resetPassword(email, password);
+		return true;
 		
 	}
 }
