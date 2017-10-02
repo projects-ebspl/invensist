@@ -1,15 +1,25 @@
 package com.einsicht.models;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserModel {
 	
 	private int id;
 	
+	@NotEmpty(message ="*FirstName is mandatory")
 	private String firstName;
 	
 	private String lastName;
 	
+	@NotEmpty(message = "*email is mandatory")
+	@Email(message = "*Please provide a valid email")
 	private String email;
 	
+	@NotEmpty(message = "*phone is mandatory")
+	@Size(max=10)
 	private String phone;
 	
 	private String address;

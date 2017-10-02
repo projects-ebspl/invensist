@@ -2,6 +2,8 @@ package com.einsicht.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -28,27 +30,20 @@ public class ConfigController {
 	private ConfigService service;
 	
 	@PostMapping("/user")
-	public ModelAndView user(@ModelAttribute("user")UserModel user, BindingResult bindingResult ) {		
+	public ModelAndView user(@Valid @ModelAttribute("user")UserModel user, BindingResult bindingResult ) {		
 
+		ModelAndView mv = new ModelAndView("pages/user");
 		UserModel userExists = service.getUserByEmail(user.getEmail());		
 		if (userExists != null) {
 			bindingResult
 			.rejectValue("email", "error.user",
 					"There is already a user registered with the email provided");
+		}		
+		if (!(user.isAdmin() || user.isPlanner() || user.isUser())) {
+			bindingResult.rejectValue("admin", "error.user");
+			mv.addObject("roleErrorMessage", "*Please select atleast one Role");			
 		}
-		if (user.getEmail() == null || user.getFirstName() == null || user.getPhone() == null) {
-			bindingResult
-			.rejectValue("email", "error.user",
-					"email, first name and phone number can not be empty");
-		}
-		if (!user.isAdmin() || !user.isPlanner() || !user.isUser()) {
-			bindingResult
-			.rejectValue("email", "error.user",
-					"please select atleast one Role");
-		}
-		if (bindingResult.hasErrors()) {
-			ModelAndView mv = new ModelAndView("pages/user");
-			mv.addObject("user", new UserModel());
+		if (bindingResult.hasErrors()) {						
 			return mv;
 		} else {
 			service.saveUser(user);

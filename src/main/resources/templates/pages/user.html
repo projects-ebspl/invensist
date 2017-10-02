@@ -13,6 +13,7 @@
 					<div class="form-item">
 						<div class="form-element">First Name: </div>
 						<input class="form-element" type="text" th:field="*{firstName}"/>
+						<label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></label>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Last Name: </div>
@@ -21,10 +22,12 @@
 					<div class="form-item">
 						<div class="form-element">Email: </div>
 						<input class="form-element" type="text" th:field="*{email}"/>
+						<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Phone: </div>
 						<input class="form-element" type="text" th:field="*{phone}"/>
+						<label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></label>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Address: </div>
@@ -42,6 +45,8 @@
 						<div class="form-element">User:</div>
 						<input class="form-element" type="checkbox" th:field="*{user}"/>
 					</div>
+					<span th:if="${#fields.hasErrors('admin')}" th:utext="${roleErrorMessage}"></span>
+					
 				</div>
 				<div class="form-element"><input type="submit" ></div>
 			</form>
