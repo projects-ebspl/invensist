@@ -12,7 +12,7 @@ create table Users (
 	primary key (id),
 	constraint uk_user_email unique (email)
 );
-insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","admin123",1,1,1); 
+insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","$2a$10$BlLSI1onYXWqMrscDEBuCOpBQ0TGpUes6U43ft8i5qgjBiHjQYxwq",1,1,1); 
 create table Roles (
 	id int not null auto_increment,
 	name varchar(64),
