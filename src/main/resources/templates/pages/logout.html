@@ -5,12 +5,24 @@
 <body>
 	<div>
 		<div th:replace="fragments :: menu"></div>
-		<div class="content-holder">
-			<div data-en-type="page-title" th:inline="text">Logout</div>
-		</div>
+		<div class="container">
+	
+		<form id ="logout-form" th:action="@{/logout}" method="get">
+			<button class="btn btn-md btn-danger btn-block" name="logout"
+				type="Submit">Logout</button>
+		</form> 		
+	</div>
 		<div style="clear: both;"></div>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	$("#logout-form").click(function() {
+		if (confirm('Are you sure you want to Logout ?')) { // Standard confirmation message.						
+			$("#logout-form").submit();
+		}
+
+	});
+</script>
 </html>
 
