@@ -18,22 +18,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
-//	@Bean
-//	public BCryptPasswordEncoder passwordEncoder() {
-//		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//		return bCryptPasswordEncoder;
-//	}
-	
-//	@Primary
-//	public DataSource dataSource() {
-//	    return DataSourceBuilder
-//	        .create()
-//	        .username("root")
-//	        .password("root")
-//	        .url("jdbc:mysql://localhost/invensistest?autoReconnect=true")
-//	        .driverClassName("com.mysql.jdbc.Driver")
-//	        .build();
-//	}
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		return bCryptPasswordEncoder;
+	}	
 	@Bean
 	@Qualifier("transactionManager")
 	@Primary

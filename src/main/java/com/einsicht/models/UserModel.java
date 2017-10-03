@@ -24,6 +24,8 @@ public class UserModel {
 	
 	private String address;
 	
+	@NotEmpty(message = "*password is mandatory")
+	@Size(min=6,max=10)
 	private String password;
 	
 	private boolean admin;

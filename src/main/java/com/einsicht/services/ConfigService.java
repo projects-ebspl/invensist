@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.einsicht.dao.ConfigDao;
@@ -16,13 +17,16 @@ public class ConfigService {
 
 	@Autowired
 	ConfigDao configDao;
+	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * save new user along with assigned roles
 	 * @param userModel
 	 */
 	public boolean saveUser(UserModel userModel) {		
-		User user = this.toUser(userModel);		 
+		User user = this.toUser(userModel);
+		user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
 		configDao.saveUser(user);
 		return true;
 	}

@@ -23,7 +23,7 @@
 						<div class="form-element">Email: </div>
 						<input class="form-element" type="text" th:field="*{email}"/>
 						<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
-					</div>
+					</div>					
 					<div class="form-item">
 						<div class="form-element">Phone: </div>
 						<input class="form-element" type="text" th:field="*{phone}"/>
@@ -32,6 +32,11 @@
 					<div class="form-item">
 						<div class="form-element">Address: </div>
 						<input class="form-element" type="text" th:field="*{address}"/>
+					</div>
+					<div class="form-item">
+						<div class="form-element">Password: </div>
+						<input class="form-element" type="text" th:field="*{password}"/>
+						<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Admin:</div>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,14 +86,16 @@ public class ConfigController {
 	public ModelAndView resetPassword(@Valid @ModelAttribute("resetPassword")ResetPassword resetPassword, BindingResult bindingResult) {
 
 		ModelAndView mv = new ModelAndView("pages/reset-password");
-		UserModel userExists = service.getUserByEmail(resetPassword.getEmail());		
-		if (userExists == null) {
-			bindingResult.rejectValue("email", "error.user", " This email is not registered");
-		}		
-		if (bindingResult.hasErrors()) {						
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!resetPassword.getNewPassword().equals(resetPassword.getConfirmNewPassword())) {
+			bindingResult
+			.rejectValue("resetPassword", "error.resetPassword",
+					"new password and confirm new password does not match");
+		}
+		if (bindingResult.hasErrors()) {
 			return mv;
 		} else {
-			boolean success = service.resetPassword(resetPassword.getEmail(),resetPassword.getNewPassword());
+			boolean success = service.resetPassword(auth.getName(),resetPassword.getNewPassword());
 			if(success) {
 				return new SuccessMessageModelAndView("The password is resetted successfully.");
 			} else {

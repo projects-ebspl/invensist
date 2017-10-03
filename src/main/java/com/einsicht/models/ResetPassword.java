@@ -2,15 +2,9 @@ package com.einsicht.models;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class ResetPassword {
-	
-	@NotEmpty(message = "*email is mandatory")
-	@Email(message = "*Please provide a valid email")
-	private String email;
-	
+public class ResetPassword {	
 	@NotEmpty(message = "*oldPassword is mandatory")
 	@Size(min=8)
 	private String oldPassword;
@@ -43,13 +37,5 @@ public class ResetPassword {
 
 	public void setConfirmNewPassword(String confirmNewPassword) {
 		this.confirmNewPassword = confirmNewPassword;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}	
 }
