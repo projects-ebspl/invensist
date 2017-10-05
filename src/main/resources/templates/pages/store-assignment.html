@@ -12,7 +12,7 @@
 					<th>User</th>
 					<th>Stores</th>
 				</tr>
-				<tr th:each="model : ${models}" th:id="${userId}">
+				<tr th:each="model : ${models}" th:id="${model.userId}">
 					<td th:text="${model.user.firstName}"></td>
 					<td th:text="${model.storesCsv}"></td>
 				</tr>
