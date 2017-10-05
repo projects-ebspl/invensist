@@ -11,6 +11,15 @@
 		$(this).append(span);
 		return this;
 	};
+	
+	$.fn.inv_list = function(model) {
+		$(this).addClass("inv-list");
+		$(this).find("div").addClass("inv-list");
+		this.select = function(id) {
+			$(this).find("div[id='" + id + "']").addClass("row-selected");
+		};
+		return this;
+	};
 
 	$.fn.inv_table = function(model) {
 		$(this).addClass("inv-table");

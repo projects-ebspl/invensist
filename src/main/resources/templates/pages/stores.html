@@ -7,16 +7,7 @@
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Stores</div>
-			<table id="stores-table">
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-				</tr>
-				<tr th:each="store : ${stores}" th:id="${store.id}">
-					<td th:inline="text">[[${store.name}]]</td>
-					<td th:inline="text">[[${store.type}]]</td>
-				</tr>
-			</table>
+			<div th:replace="fragments :: stores-table"></div>
 			<ul class="button-bar">
 				<li><a class="link-button" href="/store" id="add-store">Add</a></li>
 				<li><a class="link-button" href="#" id="delete-store">Delete</a></li>
