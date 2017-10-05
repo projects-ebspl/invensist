@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments :: header"  th:with="title=${Reset}">
+</div>
+<body>
+	<div>
+		<div th:replace="fragments :: menu"></div>
+		<div class="content-holder">
+			<div data-en-type="page-title" th:inline="text">Store Assignment</div>
+			<table id="user-stores-table">
+				<tr>
+					<th>User</th>
+					<th>Stores</th>
+				</tr>
+				<tr th:each="model : ${models}" th:id="${userId}">
+					<td th:text="${model.user.firstName}"></td>
+					<td th:text="${model.storesCsv}"></td>
+				</tr>
+			</table>
+			<ul class="button-bar">
+				<li><a class="link-button" href="/assign-store" id="assign-store">Assign Store</a></li>
+				<li><a class="link-button" href="#" id="delete-store">Delete</a></li>
+				<li><a class="link-button" href="#" id="edit-store">Edit</a></li>
+			</ul>
+		</div>
+		<form method="post" id="edit-delete-form">
+			<input name="ids" id="ids" type="hidden">
+		</form>
+		<div style="clear: both;"></div>
+	</div>
+</body>
+<div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	var storeTable = $("#user-stores-table").inv_table();
+	$("#delete-store").click(function() {
+		if(storeTable.selected() == 0) {
+			alert("Please select user(s) to delete");			
+		} else {
+			if (confirm('Are you sure you want to delete ?')) { // Standard confirmation message.
+				var selections = storeTable .selections();
+				$("#edit-delete-form").attr("action","/delete-store-assignment");
+				$("#ids").val(selections);
+				console.log($("#ids").val());
+				$("#edit-delete-form").submit();
+		    }			
+		}
+	});
+	
+</script>
+</html>
+
