@@ -9,6 +9,17 @@
 	<script type="text/javascript" th:src="@{/js/einsicht-inventory.js}"></script>
 </p>
 
+<table id="stores-table" th:fragment="stores-table">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+	</tr>
+	<tr th:each="store : ${stores}" th:id="${store.id}">
+		<td th:inline="text">[[${store.name}]]</td>
+		<td th:inline="text">[[${store.type}]]</td>
+	</tr>
+</table>
+
 <div class="menu-holder" th:fragment="menu">
 	<ul class="accordion" data-en-type="accordian">
 		<li><a class="toggle" data-en-type="accordian-button"
@@ -24,7 +35,7 @@
 				<li><a href="/users">Users</a></li>
 				<li><a href="/page/roles">Roles</a></li>
 				<li><a href="/stores">Stores</a></li>
-				<li><a href="/assign-store">Store Assignment</a></li>
+				<li><a href="/store-assignment">Store Assignment</a></li>
 				<li><a href="/page/items">Items</a></li>
 				<li><a href="/page/bom">BOM</a></li>
 			</ul></li>
