@@ -167,4 +167,8 @@ public class UserModel {
 	public void setUser(boolean user) {
 		this.user = user;
 	}
+	
+	public String getName() {
+		return getFirstName() + " " + getLastName();
+	}
 }
