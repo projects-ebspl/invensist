@@ -8,15 +8,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.einsicht.dao.ConfigDao;
+import com.einsicht.dao.InventoryDao;
+import com.einsicht.entities.Store;
 import com.einsicht.entities.User;
+import com.einsicht.enums.StoreType;
 import com.einsicht.models.ResetPassword;
+import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
+import com.einsicht.models.UserStoreModel;
 
 @Service
 public class ConfigService {
 
 	@Autowired
 	ConfigDao configDao;
+	@Autowired
+	InventoryDao inventoryDao;
+
 	@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -82,6 +90,7 @@ public class ConfigService {
 		}
 		UserModel userModel = new UserModel();
 		userModel.setAddress(user.getAddress());
+		userModel.setId(user.getId());
 		userModel.setEmail(user.getEmail());
 		userModel.setFirstName(user.getFirstName());
 		userModel.setLastName(user.getLastName());
@@ -120,6 +129,34 @@ public class ConfigService {
 	public void deleteUser(int id){
 		configDao.deleteUserById(id);
 	}
+	
+	/*
+	 * Need to add test-case
+	 */
+	public List<StoreModel> getAllStores() {
+		List<Store> stores = inventoryDao.getAllStores();
+		ArrayList<StoreModel> models = new ArrayList<StoreModel>();
+		for (Store store : stores) {
+			StoreModel model = new StoreModel();
+			model.setId(store.getId());
+			model.setName(store.getName());
+			model.setType(store.getType());
+			models.add(model);
+		}
+		return models;
+	}
+	
+	public List<StoreModel> getStoresForUser(int userId) {
+		ArrayList<StoreModel> stores = new ArrayList<StoreModel>();
+		for (int i = 1; i <= 5; i++) {
+			StoreModel store = new StoreModel();
+			store.setId(1);
+			store.setName("STORE-" + i + "-" + userId);
+			store.setType(StoreType.regular);
+			stores.add(store);
+		}
+		return stores;
+	}
 
 	public void setDao(ConfigDao dao) {
 		this.configDao = dao;
@@ -130,5 +167,17 @@ public class ConfigService {
 		this.configDao.resetPassword(email, password);
 		return true;
 		
+	}
+	
+	public List<UserStoreModel> getUserStoreAssignments() {
+		ArrayList<UserStoreModel> models = new ArrayList<UserStoreModel>();
+		List<UserModel> users = getUsers();
+		users.stream().forEach(user -> {
+			UserStoreModel model = new UserStoreModel();
+			model.setUser(user);
+			model.setStores(getStoresForUser(user.getId()));
+			models.add(model);
+		});
+		return models;
 	}
 }
