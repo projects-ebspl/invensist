@@ -9,7 +9,7 @@ public class StoreModel {
 	
 	private StoreType type = StoreType.assembly;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

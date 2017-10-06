@@ -1,5 +1,4 @@
 package com.einsicht.controller;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,6 +22,7 @@ import com.einsicht.models.UserStoreModel;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
 import com.einsicht.services.ConfigService;
+import com.einsicht.services.InventoryService;
 
 
 @Controller
@@ -30,6 +30,9 @@ public class ConfigController {
 	
 	@Autowired
 	private ConfigService service;
+	
+	@Autowired
+	InventoryService inventoryService;
 	
 	@PostMapping("/user")
 	public ModelAndView user(@Valid @ModelAttribute("user")UserModel user, BindingResult bindingResult ) {		
@@ -121,33 +124,40 @@ public class ConfigController {
 	
 	@GetMapping("/stores")
 	public ModelAndView stores() {
+		List<StoreModel> stores =  inventoryService.getStores();
 		ModelAndView mv = new ModelAndView("pages/stores");
-		mv.addObject("stores", getTestStores());
+		mv.addObject("stores", stores);
 		return mv;
 	}
 
 	@PostMapping("/delete-stores")
 	public ModelAndView deleteStores(@RequestParam("ids") String ids) {
-		// TODO Delete 
+		inventoryService.deleteStores(ids); 
 		System.out.println(ids);
 		return stores();
 	}
 
 	@PostMapping("/edit-store")
-	public ModelAndView editStore(@RequestParam("ids") String id) {
-		ModelAndView mv = new ModelAndView("pages/store");
-		StoreModel store = new StoreModel();
-		store.setId(1);
-		store.setName("WASTAGE-2");
-		store.setType(StoreType.wastage);
+	public ModelAndView editStore(@RequestParam("ids") String id) {		
+		ModelAndView mv = new ModelAndView("pages/store");		
+		StoreModel store = inventoryService.getStore(Integer.parseInt(id));		
 		mv.addObject("store", store);
-		return mv;
+		mv.addObject("types", StoreType.values());		
+		return mv;	
 	}
 
+	/**
+	 * save new store
+	 * @param store
+	 * @return ModelAndView
+	 */
 	@PostMapping("/store")
-	public ModelAndView store(@ModelAttribute("store")StoreModel store) {
-		// TODO Save Store
-		boolean success = true;
+	public ModelAndView store(@ModelAttribute("store")StoreModel store, BindingResult bindingResult) {
+		
+		boolean success = inventoryService.addStore(store);
+		if (success && store.getId() != null) {
+			return new SuccessMessageModelAndView("The store has been updated successfully.");
+		}
 		if(success) {
 			return new SuccessMessageModelAndView("The store has been added successfully.");
 		} else {

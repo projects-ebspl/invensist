@@ -14,9 +14,13 @@
 						<div class="form-element">Name: </div>
 						<input class="form-element" type="text" th:field="*{name}"/>
 					</div>
+					<div class="form-item">						
+						<input class="form-element" type="hidden" th:field="*{id}" th:value="${store.id}"/>
+					</div>
 					<div class="form-item">
 						<div class="form-element">Type: </div>
-						 <select class="form-element" th:field="*{storeType}">
+						 <select id ="selected-store" class="form-element" th:field="*{storeType}">						 
+						    <option th:if ="${store.type} != null" defaulted="selected" value="${store.type}" th:text ="${store.type.type}" >store type</option>
 						 	<option th:each="type : ${types}" th:value="${type}" th:text="${type.type}"></option>
 						 </select>
 					</div>

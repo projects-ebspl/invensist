@@ -59,8 +59,8 @@ public class ConfigService {
 	 */
 	public void deleteUsers(String stringIds) {
 		String [] ids = stringIds.split(",");
-		for(String id:ids){			
-			this.deleteUser(Integer.parseInt(id));			
+		for(String id:ids){
+			this.deleteUser(Integer.parseInt(id));
 		}		
 	}
 	/**

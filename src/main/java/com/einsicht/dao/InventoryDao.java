@@ -50,7 +50,10 @@ public class InventoryDao extends BaseDao {
 		String sql = "delete from Stores where id = ?";
 		getJdbcTemplate().update(sql, new Object[] {id});
 	}
-	
+	public Store getStoreById(int id) {
+		String sql = "select id, name, type from Stores where id = ?";
+		return getJdbcTemplate().queryForObject(sql, new Object[] {id}, new StoreRowMapper());
+	}
 	public void assignStoreToUser(int userId, int storeId) {
 		String sql = "insert into UserStoreMapping values (?, ?)";
 		getJdbcTemplate().update(sql, new Object[] {userId, storeId});
