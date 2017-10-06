@@ -1,4 +1,5 @@
 package com.einsicht.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -194,7 +195,7 @@ public class ConfigController {
 	}
 	
 	private List<StoreModel> getTestStores() {
-		ArrayList<StoreModel> stores =  new ArrayList<StoreModel>();
+		List<StoreModel> stores =  new ArrayList<StoreModel>();
 		for (int i = 1; i <= 5; i++) {
 			StoreModel store = new StoreModel();
 			store.setId(i);
