@@ -59,8 +59,8 @@ public class ConfigService {
 	 */
 	public void deleteUsers(String stringIds) {
 		String [] ids = stringIds.split(",");
-		for(String id:ids){
-			this.deleteUser(Integer.parseInt(id));
+		for(String id:ids){			
+			this.deleteUser(Integer.parseInt(id));			
 		}		
 	}
 	/**
@@ -174,8 +174,8 @@ public class ConfigService {
 		List<UserModel> users = getUsers();
 		users.stream().forEach(user -> {
 			UserStoreModel model = new UserStoreModel();
-			model.setUser(user);
-			model.setStores(getStoresForUser(user.getId()));
+			model.withUser(user);
+			model.withStores(getStoresForUser(user.getId()));
 			models.add(model);
 		});
 		return models;

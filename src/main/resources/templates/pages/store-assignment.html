@@ -7,45 +7,45 @@
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Store Assignment</div>
-			<table id="user-stores-table">
-				<tr>
-					<th>User</th>
-					<th>Stores</th>
-				</tr>
-				<tr th:each="model : ${models}" th:id="${model.userId}">
-					<td th:text="${model.user.firstName}"></td>
-					<td th:text="${model.storesCsv}"></td>
-				</tr>
-			</table>
+			<form method="get" id="edit-delete-form" action="/msa1">
+				<table id="user-stores-table">
+					<tr>
+						<th>User</th>
+						<th>Stores</th>
+					</tr>
+					<tr th:each="model : ${models}" th:id="${model.userId}">
+						<td th:text="${model.user.firstName}"></td>
+						<td th:text="${model.storesCsv}"></td>
+					</tr>
+				</table>
+			</form>
 			<ul class="button-bar">
-				<li><a class="link-button" href="/assign-store" id="assign-store">Assign Store</a></li>
-				<li><a class="link-button" href="#" id="delete-store">Delete</a></li>
-				<li><a class="link-button" href="#" id="edit-store">Edit</a></li>
+				<li><a class="link-button" href="#" id="manage-store-assignment">Manage Store Assignments</a></li>
 			</ul>
 		</div>
-		<form method="post" id="edit-delete-form">
-			<input name="ids" id="ids" type="hidden">
-		</form>
-		<div style="clear: both;"></div>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
 <script type="text/javascript">
 	var storeTable = $("#user-stores-table").inv_table();
-	$("#delete-store").click(function() {
+	$("#manage-store-assignment").click(function() {
+		$("#edit-delete-form").submit();
+	});
+/*
+	$("#edit-store-assignment").click(function() {
 		if(storeTable.selected() == 0) {
-			alert("Please select user(s) to delete");			
+			alert("Select row to edit");
+		} else if(storeTable.selected() == 1) {
+			var selections = storeTable.selections();
+			$("#edit-delete-form").attr("action","/edit-store-assignment");
+			$("#ids").val(selections);
+			console.log($("#ids").val());
+			$("#edit-delete-form").submit();
 		} else {
-			if (confirm('Are you sure you want to delete ?')) { // Standard confirmation message.
-				var selections = storeTable .selections();
-				$("#edit-delete-form").attr("action","/delete-store-assignment");
-				$("#ids").val(selections);
-				console.log($("#ids").val());
-				$("#edit-delete-form").submit();
-		    }			
+			alert("Only one row can be edited at a time");	
 		}
 	});
-	
+*/
 </script>
 </html>
 

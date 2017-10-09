@@ -13,16 +13,18 @@ public class UserStoreModel {
 		return user;
 	}
 
-	public void setUser(UserModel user) {
+	public UserStoreModel withUser(UserModel user) {
 		this.user = user;
+		return this;
 	}
 
 	public List<StoreModel> getStores() {
 		return stores;
 	}
 
-	public void setStores(List<StoreModel> stores) {
+	public UserStoreModel withStores(List<StoreModel> stores) {
 		this.stores = stores;
+		return this;
 	}
 	
 	public int getUserId() {

@@ -1,0 +1,33 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments :: header"  th:with="title=${Reset}">
+</div>
+<body>
+	<div>
+		<div th:replace="fragments :: menu"></div>
+		<div class="content-holder">
+			<div data-en-type="page-title" th:inline="text">Select User</div>
+			<select id="users">
+   				<option th:each="user : ${users}" th:id="${user.id}" th:text="${user.firstName}"/>				
+			</select>
+			<ul class="button-bar">
+				<li><a class="link-button" href="#" id="next">Next</a></li>
+			</ul>
+			<form action="/msa2" method="get" id="msa2">
+				<input type="text" name="ids" id="ids">
+			</form>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments :: scripts"></div>
+<script type="text/javascript">
+	$("#users").change(function() {
+		var optionID = $('option:selected').attr('id');
+		$("#ids").val($('option:selected').attr('id'));
+	});
+	$("#next").click(function() {
+		$("#msa2").submit();
+	});
+</script>
+</html>
+

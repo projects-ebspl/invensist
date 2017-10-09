@@ -7,10 +7,13 @@
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Assign Store</div>
+			Store Assignments for User : <span th:text="${model.user.firstName}"></span>
+			<input th:each="" type="checkbox">
 		</div>
 		<div style="clear: both;"></div>
 	</div>
 </body>
 <div th:replace="fragments :: scripts"></div>
+
 </html>
 
