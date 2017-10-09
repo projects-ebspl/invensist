@@ -194,6 +194,21 @@ public class ConfigController {
 		return new ModelAndView("pages/assign-store");
 	}
 	
+	
+	@GetMapping(value = "/msa1")
+	public ModelAndView msa1() {
+		ModelAndView mv = new ModelAndView("pages/msa1");
+		mv.addObject("users", service.getUsers());
+		return mv;
+	}
+
+	@GetMapping(value = "/msa2")
+	public ModelAndView msa2(@RequestParam(value = "ids") Integer userId) {
+		ModelAndView mv = new ModelAndView("pages/msa2");
+		return mv;
+	}
+	
+	
 	private List<StoreModel> getTestStores() {
 		List<StoreModel> stores =  new ArrayList<StoreModel>();
 		for (int i = 1; i <= 5; i++) {
