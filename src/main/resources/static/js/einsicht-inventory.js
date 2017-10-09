@@ -3,6 +3,17 @@
 		return this.prop("tagName");
 	};
 	
+	$.fn.dualSelector = function() {
+		var availableItmes = $("#available-itmes").inv_table();
+		var selectedItmes = $("#selected-itmes").inv_table();
+		$(this).find("#select").click(function(){
+			$(selectedItmes).append(availableItmes.selectedNodes());
+		});
+		$(this).find("#remove").click(function(){
+			$(availableItmes).append(selectedItmes.selectedNodes());
+		});
+	};
+	
 	$.fn.inv_pagetitle = function() {
 		$(this).addClass("page-title");
 		var span = $("<span/>")
@@ -59,10 +70,15 @@
 			return result;
 		};
 		
+		this.selectedNodes = function() {
+			return $(this).find(".row-selected");
+		};
+		
 		
 		this.selected = function() {
 			return $(this).find("tr.row-selected").length;
 		};
+		
 		return this;
 	};
 
@@ -84,4 +100,5 @@ $(function() {
 	});
 	
 	$("[data-en-type='page-title']").inv_pagetitle();
+	$(".dual-selector").dualSelector();
 });

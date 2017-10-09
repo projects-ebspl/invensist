@@ -2,7 +2,7 @@ package com.einsicht.models;
 
 import com.einsicht.enums.StoreType;
 
-public class StoreModel {
+public class StoreModel implements HasId, HasLabel {
 	private int id;
 	
 	private String name;
@@ -13,7 +13,7 @@ public class StoreModel {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -41,7 +41,10 @@ public class StoreModel {
 		this.type = StoreType.valueOf(storeType)
 				;
 	}
-	
-	
-	
+
+	@Override
+	public String getLabel() {
+		return name;
+	}
+
 }

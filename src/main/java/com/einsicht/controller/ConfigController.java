@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.enums.StoreType;
+import com.einsicht.models.DualSelectorModel;
 import com.einsicht.models.ResetPassword;
 import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
@@ -205,6 +206,13 @@ public class ConfigController {
 	@GetMapping(value = "/msa2")
 	public ModelAndView msa2(@RequestParam(value = "ids") Integer userId) {
 		ModelAndView mv = new ModelAndView("pages/msa2");
+		mv.addObject("user", service.getUserById(userId));
+		
+		DualSelectorModel<StoreModel> model = new DualSelectorModel<>();
+		model.setAvailableItems(service.getAllStores());
+		model.setSelectedItems(service.getStoresForUser(userId));
+		mv.addObject("model", model);
+
 		return mv;
 	}
 	

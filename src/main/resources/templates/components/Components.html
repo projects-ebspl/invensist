@@ -1,0 +1,24 @@
+<div class="component dual-selector" th:fragment="dual-selector">
+	<div style="float: left;">
+		<div>Available Items</div>
+		<table id="available-itmes">
+			<tr th:each="item : ${model.availableItems}" th:id="${item.id}">
+				<td th:text="${item.label}"></td>
+			</tr>
+		</table>
+	</div>
+	<div style="float: left;">
+		<div>&nbsp;</div>
+		<div><button id="select">&gt;&gt;</button></div>
+		<div><button id="remove">&lt;&lt;</button></div>
+	</div>
+	<div style="float: left;">
+		<div>Selected Items</div>
+		<table id="selected-itmes">
+			<tr th:each="item : ${model.selectedItems}" th:id="${item.id}">
+				<td th:text="${item.label}"></td>
+			</tr>
+		</table>
+	</div>
+	<div style="clear: both;"></div>
+</div>
