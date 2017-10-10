@@ -13,15 +13,6 @@ create table Users (
 	constraint uk_user_email unique (email)
 );
 insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","$2a$10$BlLSI1onYXWqMrscDEBuCOpBQ0TGpUes6U43ft8i5qgjBiHjQYxwq",1,1,1); 
-create table Roles (
-	id int not null auto_increment,
-	name varchar(64),
-	description text,
-	primary key (id)
-);
-insert into Roles values (1, "Admin", "Administrator");
-insert into Roles values (2, "Planner", "Planning invoices");
-insert into Roles values (3, "User", "Regular user");
 create table Stores (
 	id int not null auto_increment,
 	name varchar(64) not null,

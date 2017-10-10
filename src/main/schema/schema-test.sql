@@ -12,17 +12,7 @@ create table Users (
 	primary key (id),
 	constraint uk_user_email unique (email)
 );
-insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","$2a$10$BlLSI1onYXWqMrscDEBuCOpBQ0TGpUes6U43ft8i5qgjBiHjQYxwq",1,1,1);
-insert into Users values (2,"Mayuresh","Halshikar","mayuresh@einsicht.com","1234","----","mayuresh123",1,1,1);
-create table Roles (
-	id int not null auto_increment,
-	name varchar(64),
-	description text,
-	primary key (id)
-);
-insert into Roles values (1, "Admin", "Administrator");
-insert into Roles values (2, "Planner", "Planning invoices");
-insert into Roles values (3, "User", "Regular user");
+insert into Users values (1,"Admin","admin","admin@einsicht.com","1234","----","$2a$10$BlLSI1onYXWqMrscDEBuCOpBQ0TGpUes6U43ft8i5qgjBiHjQYxwq",1,1,1); 
 create table Stores (
 	id int not null auto_increment,
 	name varchar(64) not null,
@@ -30,19 +20,19 @@ create table Stores (
 	primary key (id),
 	constraint uk_name unique (name)
 );
-insert into Stores values (1, "Main", "regular");
-insert into Stores values (2, "Reject-1", "rejection");
-insert into Stores values (3, "Assembly-1", "assembly");
-insert into Stores values (4, "Wastage-1", "wastage");
-insert into Stores values (5, "Shortage-1", "shortage");
+create table UserStoreMapping (
+	user int not null,
+	store int not null,
+	primary key (user, store),
+	constraint fk_user_inuserstoremapping foreign key (user) references Users(id),
+	constraint fk_store_inuserstoremapping foreign key (store) references Stores(id)
+);
 create table InvoiceTax	(
 	id int not null auto_increment,
 	name varchar(32) not null,
 	percentage double,
 	primary key (id)
 );
-insert into InvoiceTax values(1, "cgst", 9);
-insert into InvoiceTax values(2, "sgst", 9);
 create table Item (
 	id int not null auto_increment,
 	code varchar(32),
@@ -53,13 +43,6 @@ create table Item (
 	primary key (id),
 	constraint uk_item_code unique (code)
 );
-insert into Item values (1, "S001", "Test-1", 40, null, "single");
-insert into Item values (2, "S002", "Test-2", 35, null, "single");
-insert into Item values (3, "S003", "Test-3", 37, null, "single");
-insert into Item values (4, "C001", "TestC-1", 87, 5, "combo");
-insert into Item values (5, "C002", "TestC-2", 104, 7, "combo");
-insert into Item values (6, "C003", "TestC-3", 146, 13, "combo");
-
 create table ComboItemBreakUp (
 	comboitemId int not null,
 	childitemid int not null,
@@ -138,3 +121,20 @@ create table Transactions (
 	constraint fk_tostore_in_transactions foreign key (tostore) references Stores(id),
 	constraint fk_item_in_transactions foreign key (item) references Item(id)
 );
+-- Baseline data
+insert into Users values (2,"Mayuresh","Halshikar","mayuresh@einsicht.com","1234","----","mayuresh123",1,1,1);
+insert into Stores values (1, "Main", "regular");
+insert into Stores values (2, "Reject-1", "rejection");
+insert into Stores values (3, "Assembly-1", "assembly");
+insert into Stores values (4, "Wastage-1", "wastage");
+insert into Stores values (5, "Shortage-1", "shortage");
+insert into Item values (1, "S001", "Test-1", 40, null, "single");
+insert into Item values (2, "S002", "Test-2", 35, null, "single");
+insert into Item values (3, "S003", "Test-3", 37, null, "single");
+insert into Item values (4, "C001", "TestC-1", 87, 5, "combo");
+insert into Item values (5, "C002", "TestC-2", 104, 7, "combo");
+insert into Item values (6, "C003", "TestC-3", 146, 13, "combo");
+insert into UserStoreMapping values (2, 1);
+insert into UserStoreMapping values (2, 2);
+insert into UserStoreMapping values (2, 3);
+
