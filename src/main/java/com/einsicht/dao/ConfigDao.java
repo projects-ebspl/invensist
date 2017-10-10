@@ -53,11 +53,11 @@ public class ConfigDao extends BaseDao {
 			
 		} else {
 			// Save as update
-			String sql = "update Users set  firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, password = ?"
+			String sql = "update Users set  firstName = ?, lastName = ?, phone = ?, address = ?"
 					+ ", roleAdmin = ?, rolePlanner = ?, roleUser = ? where id = ?";
 			getJdbcTemplate().update(sql, 
-					new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPassword()
-							, user.isAdmin(), user.isPlanner(), user.isUser(), user.getId()});
+					new Object[] {user.getFirstName(), user.getLastName(), user.getPhone(), user.getAddress(), user.isAdmin(), 
+							user.isPlanner(), user.isUser(), user.getId()});
 		}
 	}
 	

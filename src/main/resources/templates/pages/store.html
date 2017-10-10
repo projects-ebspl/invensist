@@ -14,7 +14,7 @@
 						<div class="form-element">Name: </div>
 						<input class="form-element" type="text" th:field="*{name}"/>
 					</div>
-					<div class="form-item">						
+					<div class="form-item" th:if="${editStore}">						
 						<input class="form-element" type="hidden" th:field="*{id}" th:value="${store.id}"/>
 					</div>
 					<div class="form-item">

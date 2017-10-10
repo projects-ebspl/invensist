@@ -15,15 +15,19 @@
 						<input class="form-element" type="text" th:field="*{firstName}"/>
 						<label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></label>
 					</div>
+					<div class="form-item" th:if="${editUser}">						
+						<input class="form-element" type="hidden" th:field="*{id}" th:value="${id}"/>
+					</div>
 					<div class="form-item">
 						<div class="form-element">Last Name: </div>
 						<input class="form-element" type="text" th:field="*{lastName}"/>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Email: </div>
-						<input class="form-element" type="text" th:field="*{email}"/>
+						<label th:if="${editUser}" th:text="*{email}"></label>
+						<input th:if="${!editUser}" class="form-element" type="text" th:field="*{email}"/>
 						<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
-					</div>					
+					</div>
 					<div class="form-item">
 						<div class="form-element">Phone: </div>
 						<input class="form-element" type="text" th:field="*{phone}"/>
@@ -34,9 +38,9 @@
 						<input class="form-element" type="text" th:field="*{address}"/>
 					</div>
 					<div class="form-item">
-						<div class="form-element">Password: </div>
-						<input class="form-element" type="text" th:field="*{password}"/>
-						<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+						<div  th:if="${!editUser}" class="form-element">Password:</div>
+						<input th:if="${!editUser}" class="form-element" type="text" th:field="*{password}" />
+						<label th:if="${#fields.hasErrors('password')}"	th:errors="*{password}"></label>
 					</div>
 					<div class="form-item">
 						<div class="form-element">Admin:</div>

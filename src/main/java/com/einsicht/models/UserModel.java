@@ -7,25 +7,22 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserModel {
 	
-	private int id;
+	private Integer id;
 	
 	@NotEmpty(message ="*FirstName is mandatory")
 	private String firstName;
 	
 	private String lastName;
 	
-	@NotEmpty(message = "*email is mandatory")
-	@Email(message = "*Please provide a valid email")
+	
 	private String email;
 	
 	@NotEmpty(message = "*phone is mandatory")
 	@Size(min=6,max=10)
 	private String phone;
 	
-	private String address;
+	private String address;	
 	
-	@NotEmpty(message = "*password is mandatory")
-	@Size(min=6,max=10)
 	private String password;
 	
 	private boolean admin;
@@ -34,7 +31,7 @@ public class UserModel {
 	
 	private boolean user;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

@@ -12,7 +12,6 @@ import com.einsicht.dao.InventoryDao;
 import com.einsicht.entities.Store;
 import com.einsicht.entities.User;
 import com.einsicht.enums.StoreType;
-import com.einsicht.models.ResetPassword;
 import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
 import com.einsicht.models.UserStoreModel;
@@ -34,7 +33,9 @@ public class ConfigService {
 	 */
 	public boolean saveUser(UserModel userModel) {		
 		User user = this.toUser(userModel);
-		user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+		if(userModel.getPassword() != null){
+			user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+		}
 		configDao.saveUser(user);
 		return true;
 	}
@@ -109,6 +110,7 @@ public class ConfigService {
 			return null;
 		}
 		User user = new User();
+		user.setId(userModel.getId());
 		user.setAddress(userModel.getAddress());
 		user.setEmail(userModel.getEmail());
 		user.setFirstName(userModel.getFirstName());
@@ -164,9 +166,9 @@ public class ConfigService {
 	}
 
 	public boolean resetPassword(String email, String password) {
-		this.configDao.resetPassword(email, password);
-		return true;
 		
+		this.configDao.resetPassword(email,bCryptPasswordEncoder.encode(password));		
+		return true;		
 	}
 	
 	public List<UserStoreModel> getUserStoreAssignments() {

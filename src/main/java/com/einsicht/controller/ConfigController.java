@@ -36,12 +36,25 @@ public class ConfigController {
 	@Autowired
 	InventoryService inventoryService;
 	
+	/**
+	 * create/update user with given details
+	 * if id exist means we are going to update existing user
+	 * @param user
+	 * @param bindingResult
+	 * @return
+	 */
 	@PostMapping("/user")
 	public ModelAndView user(@Valid @ModelAttribute("user")UserModel user, BindingResult bindingResult ) {		
 
 		ModelAndView mv = new ModelAndView("pages/user");
-		UserModel userExists = service.getUserByEmail(user.getEmail());		
-		if (userExists != null) {
+		boolean editUser = false;
+		
+		if(user.getId() != null){
+			editUser = true;
+		}
+		UserModel userExists = service.getUserByEmail(user.getEmail());
+		mv.addObject("editUser", editUser);
+		if (userExists != null && user.getId() == null) {
 			bindingResult
 			.rejectValue("email", "error.user",
 					"There is already a user registered with the email provided");
@@ -50,7 +63,7 @@ public class ConfigController {
 			bindingResult.rejectValue("admin", "error.user");
 			mv.addObject("roleErrorMessage", "*Please select atleast one Role");			
 		}
-		if (bindingResult.hasErrors()) {						
+		if (bindingResult.hasErrors()) {
 			return mv;
 		} else {
 			service.saveUser(user);
@@ -61,22 +74,18 @@ public class ConfigController {
 	@GetMapping("/user")
 	public ModelAndView user() {
 		ModelAndView mv = new ModelAndView("pages/user");
+		mv.addObject("editUser", false);
 		mv.addObject("user", new UserModel());
 		return mv;
 	}
 	
 	
 	@PostMapping("/edit-user")
-	public ModelAndView editUser(@RequestParam("ids") String id) {
+	public ModelAndView editUser(@RequestParam("ids") String id, @ModelAttribute("user")UserModel userModel, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView("pages/user");
-		UserModel user = new UserModel();
-		user.setId(1);
-		user.setFirstName("FN:" + 1);
-		user.setLastName("LN" + 1);
-		user.setEmail("email@einsicht.com");
-		user.setAdmin(true);
-		user.setPhone("123456789");
+		UserModel user = service.getUserById(Integer.parseInt(id));
 		mv.addObject("user", user);
+		mv.addObject("editUser", true);
 		return mv;
 	}
 	
@@ -100,7 +109,7 @@ public class ConfigController {
 		if (bindingResult.hasErrors()) {
 			return mv;
 		} else {
-			boolean success = service.resetPassword(auth.getName(),resetPassword.getNewPassword());
+			boolean success = service.resetPassword(auth.getName(), resetPassword.getNewPassword());
 			if(success) {
 				return new SuccessMessageModelAndView("The password is resetted successfully.");
 			} else {
@@ -142,10 +151,11 @@ public class ConfigController {
 	@PostMapping("/edit-store")
 	public ModelAndView editStore(@RequestParam("ids") String id) {		
 		ModelAndView mv = new ModelAndView("pages/store");		
-		StoreModel store = inventoryService.getStore(Integer.parseInt(id));		
+		StoreModel store = inventoryService.getStore(Integer.parseInt(id));
 		mv.addObject("store", store);
-		mv.addObject("types", StoreType.values());		
-		return mv;	
+		mv.addObject("types", StoreType.values());
+		mv.addObject("editStore", true);
+		return mv;
 	}
 
 	/**
@@ -156,12 +166,16 @@ public class ConfigController {
 	@PostMapping("/store")
 	public ModelAndView store(@ModelAttribute("store")StoreModel store, BindingResult bindingResult) {
 		
+		ModelAndView mv = new ModelAndView("pages/store");
 		boolean success = inventoryService.addStore(store);
-		if (success && store.getId() != null) {
-			return new SuccessMessageModelAndView("The store has been updated successfully.");
+		boolean editStore = false;
+		
+		if(store.getId() != null){
+			editStore = true;
 		}
-		if(success) {
-			return new SuccessMessageModelAndView("The store has been added successfully.");
+		mv.addObject("editStore", editStore);
+		if (success) {
+			return  stores();
 		} else {
 			return new ErrorMessageModelAndView("Error");
 		}
@@ -194,8 +208,7 @@ public class ConfigController {
 		// TODO Save assign store mapping
 		return new ModelAndView("pages/assign-store");
 	}
-	
-	
+  
 	@GetMapping(value = "/msa1")
 	public ModelAndView msa1() {
 		ModelAndView mv = new ModelAndView("pages/msa1");
@@ -216,7 +229,7 @@ public class ConfigController {
 		return mv;
 	}
 	
-	
+@SuppressWarnings("unused")
 	private List<StoreModel> getTestStores() {
 		List<StoreModel> stores =  new ArrayList<StoreModel>();
 		for (int i = 1; i <= 5; i++) {
