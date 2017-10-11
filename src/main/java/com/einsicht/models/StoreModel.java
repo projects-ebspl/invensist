@@ -1,7 +1,6 @@
 package com.einsicht.models;
 
 import com.einsicht.enums.StoreType;
-public class StoreModel {
 public class StoreModel implements HasId, HasLabel {
 	private Integer id;
 
