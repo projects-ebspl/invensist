@@ -1,5 +1,4 @@
 package com.einsicht.controller;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.einsicht.enums.StoreType;
-import com.einsicht.models.DualSelectorModel;
 import com.einsicht.models.ResetPassword;
 import com.einsicht.models.StoreModel;
 import com.einsicht.models.UserModel;
-import com.einsicht.models.UserStoreModel;
 import com.einsicht.mvc.ErrorMessageModelAndView;
 import com.einsicht.mvc.SuccessMessageModelAndView;
 import com.einsicht.services.ConfigService;
@@ -187,78 +184,5 @@ public class ConfigController {
 		mv.addObject("store", new StoreModel());
 		mv.addObject("types", StoreType.values());
 		return mv;
-	}
-	
-	@PostMapping("/delete-store-assignment")
-	public ModelAndView deleteStoreAssignment(@RequestParam("ids") String ids) {
-		System.out.println(ids);
-		return storeAssignment();
-	}
-
-	@GetMapping("/store-assignment")
-	public ModelAndView storeAssignment() {
-		ModelAndView mv = new ModelAndView("pages/store-assignment");
-		List<UserStoreModel> models = service.getUserStoreAssignments();
-		mv.addObject("models", models);
-		return mv;
-	}
-
-	@GetMapping("/assign-store")
-	public ModelAndView assignStore(@RequestParam("userId") Integer userId) {
-		// TODO Save assign store mapping
-		return new ModelAndView("pages/assign-store");
-	}
-  
-	@GetMapping(value = "/msa1")
-	public ModelAndView msa1() {
-		ModelAndView mv = new ModelAndView("pages/msa1");
-		mv.addObject("users", service.getUsers());
-		return mv;
-	}
-
-	@GetMapping(value = "/msa2")
-	public ModelAndView msa2(@RequestParam(value = "ids") Integer userId) {
-		ModelAndView mv = new ModelAndView("pages/msa2");
-		mv.addObject("user", service.getUserById(userId));
-		
-		DualSelectorModel<StoreModel> model = new DualSelectorModel<>();
-		model.setAvailableItems(service.getAllStores());
-		model.setSelectedItems(service.getStoresForUser(userId));
-		mv.addObject("model", model);
-
-		return mv;
-	}
-	
-@SuppressWarnings("unused")
-	private List<StoreModel> getTestStores() {
-		List<StoreModel> stores =  new ArrayList<StoreModel>();
-		for (int i = 1; i <= 5; i++) {
-			StoreModel store = new StoreModel();
-			store.setId(i);
-			switch(i) {
-				case 1: 
-					store.setName("Main");
-					store.setType(StoreType.regular);
-					break;
-				case 2: 
-					store.setName("Line");
-					store.setType(StoreType.assembly);
-					break;
-				case 3:
-					store.setName("Wastage-1");
-					store.setType(StoreType.wastage);
-					break;
-				case 4:
-					store.setName("Shortage-1");
-					store.setType(StoreType.shortage);
-					break;
-				case 5:
-					store.setName("Reject-1");
-					store.setType(StoreType.rejection);
-					break;
-			}
-			stores.add(store);
-		}
-		return stores;
 	}
 }

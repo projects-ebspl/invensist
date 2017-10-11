@@ -16,8 +16,12 @@ public abstract class BaseDao extends JdbcDaoSupport {
 		setDataSource(dataSource);
 	}
 	
-	protected void deleteObjectFromTableById(String table, Object id) {
-		String sql = "delete from " + table + " where id = ?";
+	protected void deleteObjectFromTableById(String table, Object id, String idField) {
+		String sql = "delete from " + table + " where " + idField + " = ?";
 		getJdbcTemplate().update(sql, new Object[] {id});
+	}
+
+	protected void deleteObjectFromTableById(String table, Object id) {
+		deleteObjectFromTableById(table, id, "id");
 	}
 }

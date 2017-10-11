@@ -1,7 +1,7 @@
 package com.einsicht.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.einsicht.dao.InventoryDao;
 import com.einsicht.entities.Store;
 import com.einsicht.models.StoreModel;
+import com.einsicht.models.UserModel;
+import com.einsicht.models.UserStoreModel;
 
 @Service("inventoryService")
 public class InventoryService {
@@ -26,20 +28,26 @@ public class InventoryService {
 		inventoryDao.deleteStoreById(id);		
 	}
 	public StoreModel getStore(int id) {
-		Store store = inventoryDao.getStoreById(id);
-		return this.toStoreModel(store);
+		return toStoreModel(inventoryDao.getStoreById(id));
 	}
 	public List<StoreModel> getStores() {		
-		List<StoreModel> storeModels = new ArrayList<>();
-		for(Store store:inventoryDao.getAllStores()){
-			StoreModel userModel = this.toStoreModel(store);
-			storeModels.add(userModel);
-		}
-		return storeModels;
+		return inventoryDao.getAllStores().stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
 	}
 	
+	public List<StoreModel> getStoresForUser(Integer userId) {		
+		return inventoryDao.getStoresForUser(userId).stream().map(store -> toStoreModel(store)).collect(Collectors.toList());
+	}
+	
+	public List<UserStoreModel> getUserStoreAssignments(List<UserModel> users) {
+		return users.stream().map(user -> {
+			return new UserStoreModel()
+			.withUser(user)
+			.withStores(getStoresForUser(user.getId()));
+		}).collect(Collectors.toList());
+	}
+	
+	
 	private StoreModel toStoreModel(Store store){
-
 		if(store == null){
 			return null;
 		}
@@ -60,6 +68,10 @@ public class InventoryService {
 		inventoryDao.saveStore(store);
 		return true;
 		
+	}
+	
+	public void assignStore(int userId, List<Integer> storeIds) {
+		inventoryDao.assignStore(userId, storeIds);
 	}
 
 	private Store toStore(StoreModel storeModel) {

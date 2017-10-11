@@ -33,6 +33,16 @@
 	            });
 	        });
 	    });
+	    
+		this.selections = function() {
+			var result = [];
+			$(this).find(".multiselect-on").each(function(key, value) {
+				result.push($(this).attr("id"));
+			});
+			return result;
+		};
+
+		return this;
 	};	
 	$.fn.inv_pagetitle = function() {
 		$(this).addClass("page-title");

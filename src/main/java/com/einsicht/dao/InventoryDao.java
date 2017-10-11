@@ -1,7 +1,10 @@
 package com.einsicht.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.einsicht.dao.mappers.ItemRowMapper;
@@ -88,6 +91,39 @@ public class InventoryDao extends BaseDao {
 							item.getType().name(), item.getId()});
 		}
 	}
+	
+	public void deleteStoreAssignments(int userId) {
+		String sql = "delete from UserStoreMapping where user = ?";
+		getJdbcTemplate().update(sql, new Object[] {userId});
+	}
+	
+	public void assignStore(final int userId, final List<Integer> storeIds) {
+		try {
+			// dao.startTransaction();
+			deleteStoreAssignments(userId);
+			// Insert
+			String sql = "insert into UserStoreMapping values (?,?)";
+			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					ps.setInt(1, userId);
+					ps.setInt(2, storeIds.get(i));
+				}
+				
+				@Override
+				public int getBatchSize() {
+					return storeIds.size();
+				}
+			});
+			// dao.commitTransaction();
+		} catch (Exception e) {
+			// dao.rollbackTransaction();
+			throw e;
+		} 
+		
+	}
+
 	
 	public void deleteItemById(int id) {
 		deleteObjectFromTableById("Item", id);

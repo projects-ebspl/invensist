@@ -139,25 +139,17 @@ public class ConfigService {
 		List<Store> stores = inventoryDao.getAllStores();
 		ArrayList<StoreModel> models = new ArrayList<StoreModel>();
 		for (Store store : stores) {
-			StoreModel model = new StoreModel();
-			model.setId(store.getId());
-			model.setName(store.getName());
-			model.setType(store.getType());
-			models.add(model);
+			models.add(createStoreModel(store));
 		}
 		return models;
 	}
 	
-	public List<StoreModel> getStoresForUser(int userId) {
-		ArrayList<StoreModel> stores = new ArrayList<StoreModel>();
-		for (int i = 1; i <= 5; i++) {
-			StoreModel store = new StoreModel();
-			store.setId(1);
-			store.setName("STORE-" + i + "-" + userId);
-			store.setType(StoreType.regular);
-			stores.add(store);
-		}
-		return stores;
+	private StoreModel createStoreModel(Store store) {
+		StoreModel model = new StoreModel();
+		model.setId(store.getId());
+		model.setName(store.getName());
+		model.setType(store.getType());
+		return model;
 	}
 
 	public void setDao(ConfigDao dao) {
@@ -171,15 +163,4 @@ public class ConfigService {
 		return true;		
 	}
 	
-	public List<UserStoreModel> getUserStoreAssignments() {
-		ArrayList<UserStoreModel> models = new ArrayList<UserStoreModel>();
-		List<UserModel> users = getUsers();
-		users.stream().forEach(user -> {
-			UserStoreModel model = new UserStoreModel();
-			model.withUser(user);
-			model.withStores(getStoresForUser(user.getId()));
-			models.add(model);
-		});
-		return models;
-	}
 }

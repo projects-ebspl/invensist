@@ -7,35 +7,28 @@
 		<div th:replace="fragments :: menu"></div>
 		<div class="content-holder">
 			<div data-en-type="page-title" th:inline="text">Manage stores for [[${user.firstName}]] </div>
-			<div th:replace="fragments :: stores-table"></div>
-			<ul class="button-bar">
-				<li><a class="link-button" href="/store" id="add-store">Add</a></li>
-				<li><a class="link-button" href="#" id="delete-store">Delete</a></li>
-				<li><a class="link-button" href="#" id="edit-store">Edit</a></li>
-			</ul>
 			<div class="multiselect">
-			    <label><input type="checkbox" name="option[]" value="1" />Green</label>
-			    <label><input type="checkbox" name="option[]" value="2" />Red</label>
-			    <label><input type="checkbox" name="option[]" value="3" />Blue</label>
-			    <label><input type="checkbox" name="option[]" value="4" />Orange</label>
-			    <label><input type="checkbox" name="option[]" value="5" />Purple</label>
-			    <label><input type="checkbox" name="option[]" value="6" />Black</label>
-			    <label><input type="checkbox" name="option[]" value="7" />White</label>
-			    <label><input type="checkbox" name="option[]" value="8" />Green</label>
-			    <label><input type="checkbox" name="option[]" value="9" />Red</label>
-			    <label><input type="checkbox" name="option[]" value="10" />Blue</label>
-			    <label><input type="checkbox" name="option[]" value="11" />Orange</label>
-			    <label><input type="checkbox" name="option[]" value="12" />Purple</label>
-			    <label><input type="checkbox" name="option[]" value="13" />Black</label>
-			    <label><input type="checkbox" name="option[]" value="14" />White</label>
-			</div>			
+				<label th:each="model : ${stores}" th:id="${model.store.id}"><input type="checkbox" th:text="${model.store.name}" th:checked="${model.selected}"></label>
+			</div>
+			<button id="submit">Submit</button>			
 		</div>
 	</div>
+	<form action="/assign-stores" method="post" id="assign-stores">
+		<input type="hidden" id="userId" name="userId" th:value="${user.id}">
+		<input type="hidden" id="storeIds" name="storeIds">
+	</form>
 </body>
 <div th:replace="fragments :: scripts"></div>
 <script type="text/javascript">
 $(function() {
-     $(".multiselect").multiselect();
+     var list = $(".multiselect").multiselect();
+     $("#storeIds").val(list.selections());
+     $(".multiselect").find("input:checkbox").click(function(){
+    	 $("#storeIds").val(list.selections());
+     });
+     $("#submit").click(function() {
+    	 $("#assign-stores").submit();
+     });
 });
 </script>
 </html>
